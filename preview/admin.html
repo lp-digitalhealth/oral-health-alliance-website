@@ -3,687 +3,562 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="OHIA News - Latest updates from the Oral Health Interoperability Alliance">
-  <title>News | Oral Health Interoperability Alliance (OHIA)</title>
+  <title>OHIA Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
   <style>
     :root {
-      --ohia-blue: #1a5f9e;
-      --ohia-blue-dark: #134a7c;
-      --ohia-teal: #0d9488;
-      --ohia-light: #f0f7ff;
-      --ohia-border: #d1e3f5;
-      --text-dark: #1a2e44;
-      --text-mid: #4a6480;
-      --text-light: #7a95b0;
-      --white: #ffffff;
-      --shadow-sm: 0 2px 8px rgba(26,95,158,0.08);
-      --shadow-md: 0 6px 24px rgba(26,95,158,0.12);
-      --shadow-lg: 0 12px 40px rgba(26,95,158,0.18);
-      --radius: 12px;
+      --ohia-blue: #1a5f9e; --ohia-blue-dark: #134a7c; --ohia-teal: #0d9488;
+      --ohia-light: #f0f7ff; --ohia-border: #d1e3f5;
+      --text-dark: #1a2e44; --text-mid: #4a6480; --text-light: #7a95b0; --white: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(26,95,158,0.08); --shadow-md: 0 6px 24px rgba(26,95,158,0.12);
+      --radius: 10px; --success: #059669; --danger: #dc2626; --warning: #d97706; --sidebar: 260px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: #f0f4f9; color: var(--text-dark); min-height: 100vh; }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: var(--text-dark);
-      background: #f7fafd;
-      line-height: 1.7;
-    }
+    .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--ohia-blue-dark), var(--ohia-blue) 50%, var(--ohia-teal)); padding: 2rem; }
+    .login-card { background: var(--white); border-radius: 16px; padding: 3rem 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 24px 80px rgba(0,0,0,0.25); text-align: center; }
+    .login-logo { width: 64px; height: 64px; background: var(--ohia-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 1.75rem; }
+    .login-card h1 { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .login-card > p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem; }
 
-    /* ── HEADER (matches site) ── */
-    .site-header {
-      background: var(--white);
-      border-bottom: 2px solid var(--ohia-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-sm);
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .header-flex {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0.75rem 0;
-      flex-wrap: wrap;
-    }
-    .ohia-logo { height: 56px; width: auto; }
-    .ohia-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--ohia-blue-dark);
-      flex: 1;
-    }
-    .main-nav ul { list-style: none; display: flex; gap: 0.25rem; flex-wrap: wrap; }
-    .main-nav a {
-      color: var(--text-mid);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    .main-nav a:hover, .main-nav a.active {
-      color: var(--ohia-blue);
-      background: var(--ohia-light);
-    }
+    .form-group { margin-bottom: 1.25rem; text-align: left; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--ohia-border); border-radius: 8px; font-family: 'Roboto', sans-serif; font-size: 0.95rem; color: var(--text-dark); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ohia-blue); box-shadow: 0 0 0 3px rgba(26,95,158,0.12); }
+    .form-group textarea { resize: vertical; line-height: 1.6; }
+    .char-hint { font-size: 0.72rem; color: var(--text-light); margin-top: 0.3rem; }
 
-    /* ── NEWS HERO ── */
-    .news-hero {
-      background: linear-gradient(135deg, var(--ohia-blue-dark) 0%, var(--ohia-blue) 60%, var(--ohia-teal) 100%);
-      color: var(--white);
-      padding: 4rem 0 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .news-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .news-hero .container { position: relative; }
-    .news-hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 50px;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-    .news-hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.75rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-    .news-hero p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 600px;
-    }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.72rem 1.5rem; border-radius: 8px; font-family: 'Roboto', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: var(--ohia-blue); color: white; } .btn-primary:hover { background: var(--ohia-blue-dark); transform: translateY(-1px); }
+    .btn-success { background: var(--success); color: white; } .btn-success:hover { background: #047857; }
+    .btn-danger  { background: var(--danger);  color: white; } .btn-danger:hover  { background: #b91c1c; }
+    .btn-warning { background: var(--warning); color: white; }
+    .btn-ghost   { background: transparent; color: var(--text-mid); border: 1.5px solid var(--ohia-border); } .btn-ghost:hover { border-color: var(--ohia-blue); color: var(--ohia-blue); }
+    .btn-sm   { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+    .btn-full { width: 100%; justify-content: center; }
 
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--ohia-border);
-      padding: 1rem 0;
-      position: sticky;
-      top: 85px;
-      z-index: 90;
-      box-shadow: var(--shadow-sm);
-    }
-    .filter-inner {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .filter-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-right: 0.25rem;
-    }
-    .filter-btn {
-      border: 1.5px solid var(--ohia-border);
-      background: var(--white);
-      color: var(--text-mid);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.35rem 0.9rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Roboto', sans-serif;
-    }
-    .filter-btn:hover { border-color: var(--ohia-blue); color: var(--ohia-blue); }
-    .filter-btn.active {
-      background: var(--ohia-blue);
-      border-color: var(--ohia-blue);
-      color: var(--white);
-    }
+    .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: var(--danger); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.85rem; margin-bottom: 1rem; display: none; align-items: center; gap: 0.5rem; }
 
-    /* ── MAIN CONTENT ── */
-    .news-content { padding: 3rem 0 5rem; }
+    .admin-app { display: none; min-height: 100vh; }
+    .admin-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar); background: var(--text-dark); color: rgba(255,255,255,0.85); display: flex; flex-direction: column; z-index: 50; overflow-y: auto; }
+    .sidebar-logo { padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-logo .brand { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 700; color: white; }
+    .sidebar-logo .subbrand { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem; }
+    .sidebar-nav { padding: 1rem 0; flex: 1; }
+    .sidebar-nav-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); padding: 0.75rem 1.25rem 0.35rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 1.25rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.15s; font-size: 0.88rem; font-weight: 500; border-left: 3px solid transparent; }
+    .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+    .nav-item.active { background: rgba(26,95,158,0.35); color: white; border-left-color: var(--ohia-teal); }
+    .nav-item i { width: 18px; text-align: center; opacity: 0.7; }
+    .nav-item.active i { opacity: 1; }
+    .badge-count { margin-left: auto; background: var(--ohia-blue); color: white; border-radius: 50px; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.55rem; min-width: 22px; text-align: center; }
+    .sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-footer button { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 7px; padding: 0.5rem 0.9rem; cursor: pointer; font-size: 0.8rem; width: 100%; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s; }
+    .sidebar-footer button:hover { border-color: rgba(255,255,255,0.5); color: white; }
 
-    /* ── FEATURED ARTICLE ── */
-    .featured-article {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      margin-bottom: 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 380px;
-      border: 1px solid var(--ohia-border);
-      transition: box-shadow 0.3s, transform 0.3s;
-    }
-    .featured-article:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-3px);
-    }
-    .featured-img {
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-      overflow: hidden;
-    }
-    .featured-img img { width: 100%; height: 100%; object-fit: cover; }
-    .featured-img .img-placeholder {
-      color: rgba(255,255,255,0.6);
-      font-size: 4rem;
-    }
-    .featured-body {
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .featured-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ohia-blue);
-      margin-bottom: 1rem;
-    }
-    .featured-label::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--ohia-blue);
-      border-radius: 2px;
-    }
-    .featured-body h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-    .featured-body p {
-      color: var(--text-mid);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-    }
-    .featured-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.8rem;
-      color: var(--text-light);
-      margin-bottom: 1.5rem;
-    }
-    .featured-meta span { display: flex; align-items: center; gap: 0.35rem; }
+    .admin-main { margin-left: var(--sidebar); min-height: 100vh; display: flex; flex-direction: column; }
+    .admin-topbar { background: var(--white); border-bottom: 1px solid var(--ohia-border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: var(--shadow-sm); }
+    .admin-topbar h2 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; }
+    .admin-topbar-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .admin-body { padding: 2rem; flex: 1; }
 
-    /* ── ARTICLE GRID ── */
-    .article-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .article-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      border: 1px solid var(--ohia-border);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .article-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-4px);
-      border-color: var(--ohia-blue);
-    }
-    .article-card-img {
-      height: 160px;
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .article-card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .article-card-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 2.5rem; }
-    .article-card-body { padding: 1.35rem; flex: 1; display: flex; flex-direction: column; }
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem 1.5rem; border: 1px solid var(--ohia-border); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 1rem; }
+    .stat-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .stat-icon.blue   { background: #e8f4fd; color: var(--ohia-blue); }
+    .stat-icon.green  { background: #ecfdf5; color: var(--success); }
+    .stat-icon.teal   { background: #e6fafa; color: var(--ohia-teal); }
+    .stat-icon.amber  { background: #fef3e8; color: var(--warning); }
+    .stat-num { font-size: 1.75rem; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--text-light); margin-top: 0.2rem; font-weight: 500; }
 
-    /* ── CATEGORY BADGES ── */
-    .cat-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-      margin-bottom: 0.75rem;
-      width: fit-content;
-    }
-    .cat-press   { background: #e8f4fd; color: #1a5f9e; }
-    .cat-blog    { background: #ecfdf5; color: #059669; }
-    .cat-event   { background: #fef3e8; color: #c2610c; }
-    .cat-media   { background: #f3e8ff; color: #7c3aed; }
+    .panel { background: var(--white); border-radius: var(--radius); border: 1px solid var(--ohia-border); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 2rem; }
+    .panel-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--ohia-border); display: flex; align-items: center; justify-content: space-between; }
+    .panel-header h3 { font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700; }
 
-    .article-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.4;
-      margin-bottom: 0.6rem;
-    }
-    .article-card p {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      line-height: 1.6;
-      flex: 1;
-      margin-bottom: 1rem;
-    }
-    .article-card-meta {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-top: 1px solid var(--ohia-border);
-      padding-top: 0.75rem;
-      margin-top: auto;
-    }
-    .article-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; padding: 0.75rem 1.25rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); background: var(--ohia-light); border-bottom: 1px solid var(--ohia-border); }
+    td { padding: 1rem 1.25rem; font-size: 0.875rem; border-bottom: 1px solid #f0f4f9; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f7fafd; }
 
-    .read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--ohia-blue);
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: gap 0.2s;
-    }
-    .read-more:hover { gap: 0.6rem; }
+    .status-pill { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 50px; }
+    .status-published { background: #ecfdf5; color: var(--success); }
+    .status-draft     { background: #fef3e8; color: var(--warning); }
+    .timing-pill { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; }
+    .timing-upcoming { background: #ecfdf5; color: var(--success); }
+    .timing-past     { background: #f1f5f9; color: var(--text-light); }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 5rem 2rem;
-      color: var(--text-light);
-    }
-    .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
-    .empty-state h3 { font-size: 1.2rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .cat-sm, .type-sm { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; }
+    .cat-press   { background: #e8f4fd; color: #1a5f9e; } .cat-blog { background: #ecfdf5; color: #059669; }
+    .cat-event   { background: #fef3e8; color: #c2610c; } .cat-media { background: #f3e8ff; color: #7c3aed; }
+    .type-workshop   { background: #e8f4fd; color: #1a5f9e; } .type-conference { background: #fef3e8; color: #c2610c; }
+    .type-webinar    { background: #ecfdf5; color: #059669; } .type-forum      { background: #f3e8ff; color: #7c3aed; }
+    .type-other      { background: #f1f5f9; color: var(--text-mid); }
 
-    /* ── MODAL (article detail) ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10,20,40,0.65);
-      z-index: 200;
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem 1rem;
-      overflow-y: auto;
-      backdrop-filter: blur(4px);
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--white);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 760px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-      overflow: hidden;
-      margin: auto;
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .modal-img {
-      height: 260px;
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
-    .modal-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 4rem; }
-    .modal-body { padding: 2.5rem; }
-    .modal-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-    .modal-body h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--text-dark);
-      line-height: 1.3;
-      margin-bottom: 1.5rem;
-    }
-    .modal-content-body {
-      font-size: 0.97rem;
-      color: var(--text-mid);
-      line-height: 1.85;
-      white-space: pre-wrap;
-    }
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(255,255,255,0.9);
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-sm);
-      z-index: 10;
-    }
-    .modal-wrapper { position: relative; }
+    .td-title { font-weight: 600; max-width: 260px; }
+    .td-title small { display: block; color: var(--text-light); font-size: 0.78rem; font-weight: 400; margin-top: 0.15rem; }
+    .action-btns { display: flex; gap: 0.4rem; }
 
-    /* ── CTA BTN ── */
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--ohia-blue);
-      color: var(--white);
-      padding: 0.65rem 1.4rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      font-family: 'Roboto', sans-serif;
-      border: none;
-      cursor: pointer;
-    }
-    .cta-btn:hover { background: var(--ohia-blue-dark); transform: translateY(-1px); }
-    .cta-btn-sm { padding: 0.5rem 1rem; font-size: 0.82rem; }
+    .form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .editor-actions { display: flex; gap: 0.75rem; padding: 1.25rem 1.5rem; border-top: 1px solid var(--ohia-border); background: var(--ohia-light); }
 
-    /* ── ADMIN LINK ── */
-    .admin-link-bar {
-      background: var(--ohia-light);
-      border-top: 1px solid var(--ohia-border);
-      padding: 0.75rem 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-light);
-    }
-    .admin-link-bar a { color: var(--ohia-blue); font-weight: 600; text-decoration: none; }
-    .admin-link-bar a:hover { text-decoration: underline; }
+    .section-tab { display: none; }
+    .section-tab.visible { display: block; }
+    .tbl-empty { text-align: center; padding: 3rem; color: var(--text-light); font-size: 0.9rem; }
+    .tbl-empty i { font-size: 2rem; display: block; margin-bottom: 0.75rem; opacity: 0.4; }
 
-    /* ── FOOTER ── */
-    .site-footer {
-      background: var(--text-dark);
-      color: rgba(255,255,255,0.7);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
-    }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--text-dark); color: white; padding: 0.85rem 1.5rem; border-radius: 10px; font-size: 0.88rem; font-weight: 500; box-shadow: 0 8px 30px rgba(0,0,0,0.25); z-index: 999; display: flex; align-items: center; gap: 0.5rem; transform: translateY(80px); transition: transform 0.3s; }
+    .toast.show { transform: translateY(0); }
+    .toast.success { border-left: 4px solid var(--success); }
+    .toast.danger  { border-left: 4px solid var(--danger); }
 
-    @media (max-width: 900px) {
-      .featured-article { grid-template-columns: 1fr; }
-      .article-grid { grid-template-columns: 1fr 1fr; }
-      .news-hero h1 { font-size: 2rem; }
-    }
-    @media (max-width: 600px) {
-      .article-grid { grid-template-columns: 1fr; }
-      .filter-bar { top: 70px; }
-    }
+    .page-link { color: var(--ohia-blue); text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .page-link:hover { text-decoration: underline; }
+
+    @media (max-width:900px) { :root { --sidebar: 0px; } .admin-sidebar { display: none; } .stats-row { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-flex">
-      <img src="assets/OHIA-no-words.jpg" alt="OHIA Logo" class="ohia-logo" />
-      <h1 class="ohia-title">Oral Health Interoperability Alliance</h1>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html#home">Home</a></li>
-          <li><a href="index.html#about">About Us</a></li>
-          <li><a href="index.html#priorities">Strategic Priorities</a></li>
-          <li><a href="index.html#events">Events</a></li>
-          <li><a href="index.html#membership">Membership</a></li>
-          <li><a href="news.html" class="active">News</a></li>
-          <li><a href="index.html#get-involved">Get Involved</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <div class="login-logo"><i class="fas fa-tooth"></i></div>
+      <h1>OHIA Staff Admin</h1>
+      <p>News &amp; Events Management</p>
+      <div class="error-msg" id="login-error"><i class="fas fa-exclamation-circle"></i> Incorrect password.</div>
+      <div class="form-group"><label>Password</label><input type="password" id="login-pw" placeholder="Enter admin password"></div>
+      <button class="btn btn-primary btn-full" onclick="attemptLogin()"><i class="fas fa-unlock"></i> Sign In</button>
+      <p style="margin-top:1.25rem;font-size:0.78rem;color:var(--text-light)">Default password: <code>ohia2025</code> — change in Settings after first login.</p>
+    </div>
+  </div>
+
+  <div class="admin-app" id="admin-app">
+    <aside class="admin-sidebar">
+      <div class="sidebar-logo"><div class="brand">OHIA Admin</div><div class="subbrand">News &amp; Events</div></div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">Overview</div>
+        <div class="nav-item active" onclick="showTab('dashboard')" id="nav-dashboard"><i class="fas fa-chart-bar"></i> Dashboard</div>
+        <div class="sidebar-nav-label">News</div>
+        <div class="nav-item" onclick="showTab('news-list')" id="nav-news-list"><i class="fas fa-newspaper"></i> All Articles <span class="badge-count" id="badge-news">0</span></div>
+        <div class="nav-item" onclick="showTab('news-new')" id="nav-news-new"><i class="fas fa-plus-circle"></i> New Article</div>
+        <div class="sidebar-nav-label">Events</div>
+        <div class="nav-item" onclick="showTab('events-list')" id="nav-events-list"><i class="fas fa-calendar-alt"></i> All Events <span class="badge-count" id="badge-events">0</span></div>
+        <div class="nav-item" onclick="showTab('events-new')" id="nav-events-new"><i class="fas fa-calendar-plus"></i> New Event</div>
+        <div class="sidebar-nav-label">Site</div>
+        <div class="nav-item" onclick="window.open('news.html','_blank')"><i class="fas fa-newspaper"></i> View News Page</div>
+        <div class="nav-item" onclick="window.open('events.html','_blank')"><i class="fas fa-calendar"></i> View Events Page</div>
+        <div class="nav-item" onclick="showTab('settings')" id="nav-settings"><i class="fas fa-cog"></i> Settings</div>
       </nav>
-    </div>
-  </header>
+      <div class="sidebar-footer"><button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button></div>
+    </aside>
 
-  <!-- HERO -->
-  <section class="news-hero">
-    <div class="container">
-      <div class="news-hero-label"><i class="fas fa-newspaper"></i> OHIA Newsroom</div>
-      <h1>Latest News &amp; Updates</h1>
-      <p>Press releases, blog posts, event recaps, and media coverage from the Oral Health Interoperability Alliance.</p>
-    </div>
-  </section>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h2 id="topbar-title">Dashboard</h2>
+        <div class="admin-topbar-actions">
+          <a href="news.html" target="_blank" class="page-link"><i class="fas fa-newspaper"></i> News</a>
+          <a href="events.html" target="_blank" class="page-link"><i class="fas fa-calendar"></i> Events</a>
+          <button class="btn btn-primary btn-sm" id="topbar-new-btn" onclick="showTab('news-new')"><i class="fas fa-plus"></i> New</button>
+        </div>
+      </div>
 
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <div class="container">
-      <div class="filter-inner">
-        <span class="filter-label"><i class="fas fa-filter"></i> Filter</span>
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Press Release">Press Releases</button>
-        <button class="filter-btn" data-cat="Blog Post">Blog Posts</button>
-        <button class="filter-btn" data-cat="Event Recap">Event Recaps</button>
-        <button class="filter-btn" data-cat="Media Mention">Media Mentions</button>
+      <div class="admin-body">
+
+        <!-- DASHBOARD -->
+        <div class="section-tab visible" id="tab-dashboard">
+          <div class="stats-row">
+            <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-newspaper"></i></div><div><div class="stat-num" id="sn-total">0</div><div class="stat-label">Total Articles</div></div></div>
+            <div class="stat-card"><div class="stat-icon green"><i class="fas fa-globe"></i></div><div><div class="stat-num" id="sn-pub">0</div><div class="stat-label">Published Articles</div></div></div>
+            <div class="stat-card"><div class="stat-icon teal"><i class="fas fa-calendar-alt"></i></div><div><div class="stat-num" id="se-total">0</div><div class="stat-label">Total Events</div></div></div>
+            <div class="stat-card"><div class="stat-icon amber"><i class="fas fa-calendar-check"></i></div><div><div class="stat-num" id="se-upcoming">0</div><div class="stat-label">Upcoming Events</div></div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><h3><i class="fas fa-newspaper" style="color:var(--ohia-blue);margin-right:.5rem"></i>Recent Articles</h3><button class="btn btn-ghost btn-sm" onclick="showTab('news-list')">View All</button></div>
+            <div id="dash-news"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><h3><i class="fas fa-calendar-alt" style="color:var(--ohia-teal);margin-right:.5rem"></i>Upcoming Events</h3><button class="btn btn-ghost btn-sm" onclick="showTab('events-list')">View All</button></div>
+            <div id="dash-events"></div>
+          </div>
+        </div>
+
+        <!-- NEWS LIST -->
+        <div class="section-tab" id="tab-news-list">
+          <div class="panel">
+            <div class="panel-header"><h3><i class="fas fa-list" style="color:var(--ohia-blue);margin-right:.5rem"></i>All Articles</h3><button class="btn btn-primary btn-sm" onclick="showTab('news-new')"><i class="fas fa-plus"></i> New</button></div>
+            <div id="news-tbl"></div>
+          </div>
+        </div>
+
+        <!-- NEWS EDITOR -->
+        <div class="section-tab" id="tab-news-new">
+          <div class="panel">
+            <div class="panel-header"><h3 id="news-ed-title"><i class="fas fa-pen-nib" style="color:var(--ohia-blue);margin-right:.5rem"></i>New Article</h3></div>
+            <div style="padding:1.5rem">
+              <input type="hidden" id="n-id">
+              <div class="form-row">
+                <div class="form-group"><label>Category *</label><select id="n-cat"><option>Press Release</option><option>Blog Post</option><option>Event Recap</option><option>Media Mention</option></select></div>
+                <div class="form-group"><label>Date *</label><input type="date" id="n-date"></div>
+              </div>
+              <div class="form-group"><label>Headline *</label><input type="text" id="n-title" placeholder="Enter a clear, compelling headline"></div>
+              <div class="form-group"><label>Author</label><input type="text" id="n-author" placeholder="e.g. OHIA Staff"></div>
+              <div class="form-group"><label>Excerpt *</label><textarea id="n-excerpt" rows="3" placeholder="1–2 sentence summary shown in card previews."></textarea></div>
+              <div class="form-group"><label>Full Body *</label><textarea id="n-body" rows="12" placeholder="Full article content."></textarea></div>
+              <div class="form-group"><label>Image URL</label><input type="url" id="n-img" placeholder="https://... or assets/filename.jpg"></div>
+              <div class="form-group"><label>Status</label><select id="n-status"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+            </div>
+            <div class="editor-actions">
+              <button class="btn btn-success" onclick="saveNews()"><i class="fas fa-check"></i> Save Article</button>
+              <button class="btn btn-ghost" onclick="showTab('news-list')"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- EVENTS LIST -->
+        <div class="section-tab" id="tab-events-list">
+          <div class="panel">
+            <div class="panel-header"><h3><i class="fas fa-list" style="color:var(--ohia-teal);margin-right:.5rem"></i>All Events</h3><button class="btn btn-primary btn-sm" onclick="showTab('events-new')"><i class="fas fa-plus"></i> New</button></div>
+            <div id="events-tbl"></div>
+          </div>
+        </div>
+
+        <!-- EVENTS EDITOR -->
+        <div class="section-tab" id="tab-events-new">
+          <div class="panel">
+            <div class="panel-header"><h3 id="ev-ed-title"><i class="fas fa-calendar-plus" style="color:var(--ohia-teal);margin-right:.5rem"></i>New Event</h3></div>
+            <div style="padding:1.5rem">
+              <input type="hidden" id="e-id">
+              <div class="form-row">
+                <div class="form-group"><label>Event Type *</label><select id="e-type"><option>Workshop</option><option>Conference</option><option>Webinar</option><option>Forum</option><option>Other</option></select></div>
+                <div class="form-group"><label>Date *</label><input type="date" id="e-date"></div>
+              </div>
+              <div class="form-group"><label>Title *</label><input type="text" id="e-title" placeholder="e.g. OHIA Workshop at the ADA"></div>
+              <div class="form-group"><label>Subtitle / Tagline</label><input type="text" id="e-subtitle" placeholder="e.g. Shaping the Future of Dental Data Interoperability"></div>
+              <div class="form-row">
+                <div class="form-group"><label>Time</label><input type="text" id="e-time" placeholder="e.g. 10:00 AM – 1:00 PM CST"></div>
+                <div class="form-group"><label>Location</label><input type="text" id="e-location" placeholder="e.g. ADA Headquarters, Chicago"></div>
+              </div>
+              <div class="form-group"><label>Format Label</label><input type="text" id="e-format" placeholder="e.g. Hybrid Event, Preconference Forum"><div class="char-hint">Shown as the badge on the event card.</div></div>
+              <div class="form-group"><label>Description *</label><textarea id="e-desc" rows="6" placeholder="Full event description. Separate paragraphs with a blank line."></textarea></div>
+              <div class="form-group"><label>Highlights / Focus Areas</label><textarea id="e-highlights" rows="5" placeholder="One bullet point per line:&#10;Connect with dental and medical decision-makers&#10;Participate in collaborative discussions"></textarea><div class="char-hint">One item per line — each becomes a bullet point.</div></div>
+              <div class="form-group"><label>Highlights Label</label><input type="text" id="e-hl-label" placeholder="e.g. Event Highlights / Forum Focus Areas" value="Event Highlights"></div>
+              <div class="form-row">
+                <div class="form-group"><label>Register / CTA URL</label><input type="url" id="e-reg-url" placeholder="https://..."></div>
+                <div class="form-group"><label>CTA Button Label</label><input type="text" id="e-reg-label" placeholder="e.g. Register Your Interest" value="Register Now"></div>
+              </div>
+              <div class="form-group"><label>Learn More URL (optional 2nd button)</label><input type="url" id="e-learn-url" placeholder="https://..."></div>
+              <div class="form-group"><label>Featured Image URL</label><input type="url" id="e-img" placeholder="https://... or assets/filename.jpg"></div>
+              <div class="form-group"><label>Hashtags</label><input type="text" id="e-tags" placeholder="#HealthIT, #Interoperability, #HIMSS26"><div class="char-hint">Comma-separated, include the # symbol.</div></div>
+              <div class="form-group"><label>Footer Note</label><input type="text" id="e-note" placeholder="e.g. Additional fees apply for this preconference forum."></div>
+              <div class="form-group"><label>Status</label><select id="e-status"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+            </div>
+            <div class="editor-actions">
+              <button class="btn btn-success" onclick="saveEvent()"><i class="fas fa-check"></i> Save Event</button>
+              <button class="btn btn-ghost" onclick="showTab('events-list')"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="section-tab" id="tab-settings">
+          <div class="panel" style="max-width:500px">
+            <div class="panel-header"><h3><i class="fas fa-cog" style="color:var(--ohia-blue);margin-right:.5rem"></i>Settings</h3></div>
+            <div style="padding:1.5rem">
+              <div class="form-group"><label>New Password</label><input type="password" id="new-pw" placeholder="New password"></div>
+              <div class="form-group"><label>Confirm Password</label><input type="password" id="confirm-pw" placeholder="Confirm password"></div>
+              <button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-key"></i> Update Password</button>
+              <hr style="margin:2rem 0;border:none;border-top:1px solid var(--ohia-border)">
+              <div class="form-group"><label>Export All Data</label><div class="char-hint" style="margin-bottom:.75rem">Download all articles and events as JSON.</div><button class="btn btn-ghost" onclick="exportData()"><i class="fas fa-download"></i> Export</button></div>
+              <hr style="margin:2rem 0;border:none;border-top:1px solid var(--ohia-border)">
+              <div class="form-group"><label style="color:var(--danger)">Danger Zone</label><div class="char-hint" style="margin-bottom:.75rem">Permanently delete all data.</div><button class="btn btn-danger" onclick="deleteAll()"><i class="fas fa-trash"></i> Delete All</button></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- admin-body -->
+    </main>
+  </div><!-- admin-app -->
+
+  <div class="toast" id="toast"></div>
+  <div id="confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center">
+    <div style="background:white;border-radius:12px;padding:2rem;max-width:380px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:1rem">⚠️</div>
+      <h3 style="font-family:Montserrat,sans-serif;margin-bottom:.5rem">Delete?</h3>
+      <p id="confirm-msg" style="color:var(--text-mid);font-size:.88rem;margin-bottom:1.5rem"></p>
+      <div style="display:flex;gap:.75rem;justify-content:center">
+        <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+        <button class="btn btn-danger" id="confirm-ok">Delete</button>
       </div>
     </div>
   </div>
 
-  <!-- MAIN NEWS -->
-  <main class="news-content">
-    <div class="container">
-      <!-- Featured -->
-      <div id="featured-wrap"></div>
-      <!-- Grid -->
-      <div id="news-grid" class="article-grid"></div>
-      <!-- Empty state -->
-      <div id="empty-state" class="empty-state" style="display:none;">
-        <i class="fas fa-newspaper"></i>
-        <h3>No articles yet</h3>
-        <p>Check back soon for updates from OHIA.</p>
-      </div>
-    </div>
-  </main>
+<script>
+const NK='ohia_news', EK='ohia_events', PK='ohia_admin_pw', SK='ohia_admin_session';
+const getN=()=>{try{return JSON.parse(localStorage.getItem(NK)||'[]')}catch(e){return[]}};
+const getE=()=>{try{return JSON.parse(localStorage.getItem(EK)||'[]')}catch(e){return[]}};
+const setN=a=>localStorage.setItem(NK,JSON.stringify(a));
+const setE=a=>localStorage.setItem(EK,JSON.stringify(a));
+const getPw=()=>localStorage.getItem(PK)||'ohia2025';
 
-  <!-- ARTICLE MODAL -->
-  <div class="modal-overlay" id="article-modal" onclick="closeModal(event)">
-    <div class="modal-wrapper">
-      <button class="modal-close" onclick="closeModalBtn()"><i class="fas fa-times"></i></button>
-      <div class="modal" id="modal-content"></div>
-    </div>
-  </div>
+// ── AUTH ──
+function attemptLogin(){
+  if(document.getElementById('login-pw').value===getPw()){
+    sessionStorage.setItem(SK,'1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-app').style.display='flex';
+    refreshAll();
+  } else {
+    document.getElementById('login-error').style.display='flex';
+    document.getElementById('login-pw').value='';
+  }
+}
+document.getElementById('login-pw').addEventListener('keydown',e=>{if(e.key==='Enter')attemptLogin();});
+function logout(){sessionStorage.removeItem(SK);location.reload();}
+if(sessionStorage.getItem(SK)==='1'){document.getElementById('login-screen').style.display='none';document.getElementById('admin-app').style.display='flex';refreshAll();}
 
-  <!-- ADMIN LINK -->
-  <div class="admin-link-bar">
-    <a href="admin.html"><i class="fas fa-lock"></i> OHIA Staff Admin</a>
-  </div>
+// ── TABS ──
+const TABS=['dashboard','news-list','news-new','events-list','events-new','settings'];
+const TITLES={dashboard:'Dashboard','news-list':'All Articles','news-new':'New Article','events-list':'All Events','events-new':'New Event',settings:'Settings'};
+function showTab(t){
+  TABS.forEach(x=>{
+    document.getElementById('tab-'+x).classList.toggle('visible',x===t);
+    const n=document.getElementById('nav-'+x);
+    if(n)n.classList.toggle('active',x===t);
+  });
+  document.getElementById('topbar-title').textContent=TITLES[t]||'';
+  const nb=document.getElementById('topbar-new-btn');
+  if(t.startsWith('events')){nb.innerHTML='<i class="fas fa-plus"></i> New Event';nb.onclick=()=>showTab('events-new');}
+  else{nb.innerHTML='<i class="fas fa-plus"></i> New Article';nb.onclick=()=>showTab('news-new');}
+  if(t==='news-new')clearNewsEd();
+  if(t==='events-new')clearEvEd();
+  if(t==='news-list')renderNTbl();
+  if(t==='events-list')renderETbl();
+  if(t==='dashboard')refreshDash();
+}
 
-  <footer class="site-footer">
-    <p>&copy; 2025 Oral Health Interoperability Alliance (OHIA). All rights reserved.</p>
-  </footer>
+// ── HELPERS ──
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmtD=iso=>{if(!iso)return'';return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});};
+const isPast=iso=>new Date(iso+'T23:59:59')<new Date();
+const nextId=arr=>arr.length?Math.max(...arr.map(a=>a.id))+1:1;
 
-  <script>
-    const CAT_ICONS = {
-      'Press Release': 'fas fa-bullhorn',
-      'Blog Post':     'fas fa-pen-nib',
-      'Event Recap':   'fas fa-calendar-check',
-      'Media Mention': 'fas fa-satellite-dish'
-    };
-    const CAT_CSS = {
-      'Press Release': 'cat-press',
-      'Blog Post':     'cat-blog',
-      'Event Recap':   'cat-event',
-      'Media Mention': 'cat-media'
-    };
+const NC={  'Press Release':'cat-press','Blog Post':'cat-blog','Event Recap':'cat-event','Media Mention':'cat-media'};
+const NI={'Press Release':'fas fa-bullhorn','Blog Post':'fas fa-pen-nib','Event Recap':'fas fa-calendar-check','Media Mention':'fas fa-satellite-dish'};
+const EC={'Workshop':'type-workshop','Conference':'type-conference','Webinar':'type-webinar','Forum':'type-forum','Other':'type-other'};
+const EI={'Workshop':'fas fa-users','Conference':'fas fa-building','Webinar':'fas fa-video','Forum':'fas fa-comments','Other':'fas fa-calendar-alt'};
 
-    function getArticles() {
-      try { return JSON.parse(localStorage.getItem('ohia_news') || '[]'); } catch(e) { return []; }
-    }
+const nCat=c=>`<span class="cat-sm ${NC[c]||'cat-press'}"><i class="${NI[c]||'fas fa-newspaper'}"></i> ${esc(c)}</span>`;
+const eType=t=>`<span class="type-sm ${EC[t]||'type-other'}"><i class="${EI[t]||'fas fa-calendar'}"></i> ${esc(t)}</span>`;
+const sPill=p=>`<span class="status-pill ${p?'status-published':'status-draft'}"><i class="fas fa-${p?'globe':'file-alt'}"></i>${p?'Published':'Draft'}</span>`;
+const tPill=iso=>`<span class="timing-pill ${isPast(iso)?'timing-past':'timing-upcoming'}"><i class="fas fa-${isPast(iso)?'history':'clock'}"></i>${isPast(iso)?'Past':'Upcoming'}</span>`;
 
-    function formatDate(iso) {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-    }
+// ── NEWS CRUD ──
+function clearNewsEd(){
+  document.getElementById('n-id').value='';
+  ['n-title','n-author','n-excerpt','n-body','n-img'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('n-cat').value='Press Release';
+  document.getElementById('n-status').value='published';
+  document.getElementById('n-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('news-ed-title').innerHTML='<i class="fas fa-pen-nib" style="color:var(--ohia-blue);margin-right:.5rem"></i>New Article';
+}
+function saveNews(){
+  const title=document.getElementById('n-title').value.trim();
+  const excerpt=document.getElementById('n-excerpt').value.trim();
+  const body=document.getElementById('n-body').value.trim();
+  const date=document.getElementById('n-date').value;
+  if(!title||!excerpt||!body||!date){showToast('Fill in all required fields.','danger');return;}
+  const obj={id:null,title,excerpt,body,date,
+    category:document.getElementById('n-cat').value,
+    author:document.getElementById('n-author').value.trim(),
+    imageUrl:document.getElementById('n-img').value.trim(),
+    published:document.getElementById('n-status').value==='published',
+    createdAt:new Date().toISOString()};
+  const eid=document.getElementById('n-id').value;
+  let arr=getN();
+  if(eid){arr=arr.map(a=>a.id==eid?{...a,...obj,id:a.id}:a);showToast('Article updated!','success');}
+  else{obj.id=nextId(arr);arr.unshift(obj);showToast('Article published!','success');}
+  setN(arr);refreshAll();showTab('news-list');
+}
+function editNews(id){
+  const a=getN().find(x=>x.id===id);if(!a)return;
+  showTab('news-new');
+  document.getElementById('news-ed-title').innerHTML='<i class="fas fa-edit" style="color:var(--ohia-blue);margin-right:.5rem"></i>Edit Article';
+  document.getElementById('n-id').value=a.id;
+  document.getElementById('n-title').value=a.title;
+  document.getElementById('n-excerpt').value=a.excerpt;
+  document.getElementById('n-body').value=a.body;
+  document.getElementById('n-author').value=a.author||'';
+  document.getElementById('n-img').value=a.imageUrl||'';
+  document.getElementById('n-cat').value=a.category;
+  document.getElementById('n-date').value=a.date;
+  document.getElementById('n-status').value=a.published?'published':'draft';
+}
+function togNews(id){let arr=getN();arr=arr.map(a=>a.id===id?{...a,published:!a.published}:a);setN(arr);refreshAll();renderNTbl();showToast(arr.find(a=>a.id===id).published?'Published!':'Moved to draft.','success');}
 
-    function badge(cat) {
-      return `<span class="cat-badge ${CAT_CSS[cat]||'cat-press'}"><i class="${CAT_ICONS[cat]||'fas fa-newspaper'}"></i>${cat}</span>`;
-    }
+// ── EVENTS CRUD ──
+function clearEvEd(){
+  document.getElementById('e-id').value='';
+  ['e-title','e-subtitle','e-time','e-location','e-format','e-desc','e-highlights','e-reg-url','e-learn-url','e-img','e-tags','e-note'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('e-hl-label').value='Event Highlights';
+  document.getElementById('e-reg-label').value='Register Now';
+  document.getElementById('e-type').value='Workshop';
+  document.getElementById('e-status').value='published';
+  document.getElementById('e-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('ev-ed-title').innerHTML='<i class="fas fa-calendar-plus" style="color:var(--ohia-teal);margin-right:.5rem"></i>New Event';
+}
+function saveEvent(){
+  const title=document.getElementById('e-title').value.trim();
+  const desc=document.getElementById('e-desc').value.trim();
+  const date=document.getElementById('e-date').value;
+  if(!title||!desc||!date){showToast('Fill in all required fields.','danger');return;}
+  const hlRaw=document.getElementById('e-highlights').value.trim();
+  const tags=document.getElementById('e-tags').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const obj={id:null,title,description:desc,date,
+    subtitle:document.getElementById('e-subtitle').value.trim(),
+    time:document.getElementById('e-time').value.trim(),
+    location:document.getElementById('e-location').value.trim(),
+    format:document.getElementById('e-format').value.trim(),
+    type:document.getElementById('e-type').value,
+    highlights:hlRaw?hlRaw.split('\n').map(s=>s.trim()).filter(Boolean):[],
+    highlightsLabel:document.getElementById('e-hl-label').value.trim()||'Event Highlights',
+    registerUrl:document.getElementById('e-reg-url').value.trim(),
+    registerLabel:document.getElementById('e-reg-label').value.trim()||'Register Now',
+    learnMoreUrl:document.getElementById('e-learn-url').value.trim(),
+    imageUrl:document.getElementById('e-img').value.trim(),
+    hashtags:tags,
+    note:document.getElementById('e-note').value.trim(),
+    published:document.getElementById('e-status').value==='published',
+    createdAt:new Date().toISOString()};
+  const eid=document.getElementById('e-id').value;
+  let arr=getE();
+  if(eid){arr=arr.map(a=>a.id==eid?{...a,...obj,id:a.id}:a);showToast('Event updated!','success');}
+  else{obj.id=nextId(arr);arr.push(obj);showToast('Event saved!','success');}
+  setE(arr);refreshAll();showTab('events-list');
+}
+function editEvent(id){
+  const e=getE().find(x=>x.id===id);if(!e)return;
+  showTab('events-new');
+  document.getElementById('ev-ed-title').innerHTML='<i class="fas fa-edit" style="color:var(--ohia-teal);margin-right:.5rem"></i>Edit Event';
+  document.getElementById('e-id').value=e.id;
+  document.getElementById('e-title').value=e.title;
+  document.getElementById('e-subtitle').value=e.subtitle||'';
+  document.getElementById('e-date').value=e.date;
+  document.getElementById('e-time').value=e.time||'';
+  document.getElementById('e-location').value=e.location||'';
+  document.getElementById('e-format').value=e.format||'';
+  document.getElementById('e-type').value=e.type||'Workshop';
+  document.getElementById('e-desc').value=e.description||'';
+  document.getElementById('e-highlights').value=(e.highlights||[]).join('\n');
+  document.getElementById('e-hl-label').value=e.highlightsLabel||'Event Highlights';
+  document.getElementById('e-reg-url').value=e.registerUrl||'';
+  document.getElementById('e-reg-label').value=e.registerLabel||'Register Now';
+  document.getElementById('e-learn-url').value=e.learnMoreUrl||'';
+  document.getElementById('e-img').value=e.imageUrl||'';
+  document.getElementById('e-tags').value=(e.hashtags||[]).join(', ');
+  document.getElementById('e-note').value=e.note||'';
+  document.getElementById('e-status').value=e.published?'published':'draft';
+}
+function togEv(id){let arr=getE();arr=arr.map(a=>a.id===id?{...a,published:!a.published}:a);setE(arr);refreshAll();renderETbl();showToast(arr.find(a=>a.id===id).published?'Event published!':'Moved to draft.','success');}
 
-    function imgOrPlaceholder(src, cls) {
-      if (src) return `<img src="${escHtml(src)}" alt="Article image" onerror="this.style.display='none'">`;
-      return `<div class="img-placeholder"><i class="fas fa-newspaper"></i></div>`;
-    }
+// ── CONFIRM DELETE ──
+let pending=null;
+function confirmDel(type,id,title){pending={type,id};document.getElementById('confirm-msg').textContent=`Delete "${title}"? This cannot be undone.`;document.getElementById('confirm-overlay').style.display='flex';document.getElementById('confirm-ok').onclick=()=>{doDel();closeConfirm();};}
+function closeConfirm(){document.getElementById('confirm-overlay').style.display='none';pending=null;}
+function doDel(){
+  if(!pending)return;
+  if(pending.type==='news'){setN(getN().filter(a=>a.id!==pending.id));refreshAll();renderNTbl();}
+  else{setE(getE().filter(a=>a.id!==pending.id));refreshAll();renderETbl();}
+  showToast('Deleted.','danger');
+}
 
-    function escHtml(s) {
-      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+// ── RENDER ──
+function renderNTbl(){
+  const arr=getN();const w=document.getElementById('news-tbl');
+  if(!arr.length){w.innerHTML='<div class="tbl-empty"><i class="fas fa-newspaper"></i>No articles yet.</div>';return;}
+  w.innerHTML=`<table><thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>${arr.map(a=>`<tr>
+    <td class="td-title">${esc(a.title)}${a.author?`<small>By ${esc(a.author)}</small>`:''}</td>
+    <td>${nCat(a.category)}</td>
+    <td style="font-size:.82rem;color:var(--text-mid)">${fmtD(a.date)}</td>
+    <td>${sPill(a.published)}</td>
+    <td><div class="action-btns">
+      <button class="btn btn-ghost btn-sm" onclick="editNews(${a.id})" title="Edit"><i class="fas fa-edit"></i></button>
+      <button class="btn ${a.published?'btn-warning':'btn-success'} btn-sm" onclick="togNews(${a.id})"><i class="fas fa-${a.published?'eye-slash':'globe'}"></i></button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDel('news',${a.id},'${esc(a.title)}')"><i class="fas fa-trash"></i></button>
+    </div></td></tr>`).join('')}</tbody></table>`;
+}
 
-    let currentFilter = 'all';
+function renderETbl(){
+  const arr=getE().slice().sort((a,b)=>a.date.localeCompare(b.date));const w=document.getElementById('events-tbl');
+  if(!arr.length){w.innerHTML='<div class="tbl-empty"><i class="fas fa-calendar-alt"></i>No events yet.</div>';return;}
+  w.innerHTML=`<table><thead><tr><th>Title</th><th>Type</th><th>Date</th><th>Timing</th><th>Status</th><th>Actions</th></tr></thead><tbody>${arr.map(e=>`<tr>
+    <td class="td-title">${esc(e.title)}${e.location?`<small>${esc(e.location)}</small>`:''}</td>
+    <td>${eType(e.type)}</td>
+    <td style="font-size:.82rem;color:var(--text-mid)">${fmtD(e.date)}</td>
+    <td>${tPill(e.date)}</td>
+    <td>${sPill(e.published)}</td>
+    <td><div class="action-btns">
+      <button class="btn btn-ghost btn-sm" onclick="editEvent(${e.id})" title="Edit"><i class="fas fa-edit"></i></button>
+      <button class="btn ${e.published?'btn-warning':'btn-success'} btn-sm" onclick="togEv(${e.id})"><i class="fas fa-${e.published?'eye-slash':'globe'}"></i></button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDel('event',${e.id},'${esc(e.title)}')"><i class="fas fa-trash"></i></button>
+    </div></td></tr>`).join('')}</tbody></table>`;
+}
 
-    function render(filter) {
-      currentFilter = filter;
-      const all = getArticles().filter(a => a.published);
-      const articles = filter === 'all' ? all : all.filter(a => a.category === filter);
+function refreshDash(){
+  const news=getN();const events=getE();
+  const today=new Date();today.setHours(0,0,0,0);
+  const upcoming=events.filter(e=>new Date(e.date+'T23:59:59')>=today&&e.published);
+  document.getElementById('sn-total').textContent=news.length;
+  document.getElementById('sn-pub').textContent=news.filter(a=>a.published).length;
+  document.getElementById('se-total').textContent=events.length;
+  document.getElementById('se-upcoming').textContent=upcoming.length;
 
-      // Update filter buttons
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.cat === filter);
-      });
+  const dn=document.getElementById('dash-news');const recentN=news.slice(0,5);
+  dn.innerHTML=recentN.length
+    ?`<table><thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>${recentN.map(a=>`<tr><td class="td-title">${esc(a.title)}</td><td>${nCat(a.category)}</td><td style="font-size:.82rem;color:var(--text-mid)">${fmtD(a.date)}</td><td>${sPill(a.published)}</td><td><button class="btn btn-ghost btn-sm" onclick="editNews(${a.id})"><i class="fas fa-edit"></i></button></td></tr>`).join('')}</tbody></table>`
+    :'<div class="tbl-empty"><i class="fas fa-newspaper"></i>No articles yet.</div>';
 
-      const featWrap = document.getElementById('featured-wrap');
-      const grid = document.getElementById('news-grid');
-      const empty = document.getElementById('empty-state');
+  const de=document.getElementById('dash-events');
+  const upEv=events.filter(e=>new Date(e.date+'T23:59:59')>=today).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+  de.innerHTML=upEv.length
+    ?`<table><thead><tr><th>Title</th><th>Type</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>${upEv.map(e=>`<tr><td class="td-title">${esc(e.title)}${e.location?`<small>${esc(e.location)}</small>`:''}</td><td>${eType(e.type)}</td><td style="font-size:.82rem;color:var(--text-mid)">${fmtD(e.date)}</td><td>${sPill(e.published)}</td><td><button class="btn btn-ghost btn-sm" onclick="editEvent(${e.id})"><i class="fas fa-edit"></i></button></td></tr>`).join('')}</tbody></table>`
+    :'<div class="tbl-empty"><i class="fas fa-calendar-alt"></i>No upcoming events.</div>';
+}
 
-      if (!articles.length) {
-        featWrap.innerHTML = '';
-        grid.innerHTML = '';
-        empty.style.display = 'block';
-        return;
-      }
-      empty.style.display = 'none';
+function refreshAll(){
+  document.getElementById('badge-news').textContent=getN().length;
+  document.getElementById('badge-events').textContent=getE().length;
+  refreshDash();
+}
 
-      // Featured = first article
-      const feat = articles[0];
-      featWrap.innerHTML = `
-        <div class="featured-article" onclick="openModal(${feat.id})">
-          <div class="featured-img">${imgOrPlaceholder(feat.imageUrl)}</div>
-          <div class="featured-body">
-            <div class="featured-label">Featured</div>
-            ${badge(feat.category)}
-            <h2>${escHtml(feat.title)}</h2>
-            <p>${escHtml(feat.excerpt)}</p>
-            <div class="featured-meta">
-              <span><i class="fas fa-calendar"></i>${formatDate(feat.date)}</span>
-              ${feat.author ? `<span><i class="fas fa-user"></i>${escHtml(feat.author)}</span>` : ''}
-            </div>
-            <span class="read-more"><i class="fas fa-arrow-right"></i> Read article</span>
-          </div>
-        </div>`;
+// ── SETTINGS ──
+function changePassword(){
+  const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
+  if(!np){showToast('Enter a password.','danger');return;}
+  if(np!==cp){showToast('Passwords do not match.','danger');return;}
+  if(np.length<6){showToast('Min 6 characters.','danger');return;}
+  localStorage.setItem(PK,np);
+  document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
+  showToast('Password updated!','success');
+}
+function exportData(){
+  const d={news:getN(),events:getE(),exported:new Date().toISOString()};
+  const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download=`ohia-data-${new Date().toISOString().split('T')[0]}.json`;a.click();URL.revokeObjectURL(u);
+  showToast('Exported!','success');
+}
+function deleteAll(){if(!confirm('DELETE ALL DATA? Cannot be undone.'))return;setN([]);setE([]);refreshAll();renderNTbl();renderETbl();showToast('All data deleted.','danger');}
 
-      // Grid = rest
-      const rest = articles.slice(1);
-      if (!rest.length) { grid.innerHTML = ''; return; }
-      grid.innerHTML = rest.map(a => `
-        <div class="article-card" onclick="openModal(${a.id})">
-          <div class="article-card-img">${imgOrPlaceholder(a.imageUrl)}</div>
-          <div class="article-card-body">
-            ${badge(a.category)}
-            <h3>${escHtml(a.title)}</h3>
-            <p>${escHtml(a.excerpt)}</p>
-            <div class="article-card-meta">
-              <span><i class="fas fa-calendar"></i>${formatDate(a.date)}</span>
-              ${a.author ? `<span><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
-            </div>
-          </div>
-        </div>`).join('');
-    }
-
-    function openModal(id) {
-      const articles = getArticles();
-      const a = articles.find(x => x.id === id);
-      if (!a) return;
-      document.getElementById('modal-content').innerHTML = `
-        <div class="modal-img">${imgOrPlaceholder(a.imageUrl)}</div>
-        <div class="modal-body">
-          <div class="modal-meta">
-            ${badge(a.category)}
-            <span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;">
-              <i class="fas fa-calendar"></i>${formatDate(a.date)}
-            </span>
-            ${a.author ? `<span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;"><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
-          </div>
-          <h2>${escHtml(a.title)}</h2>
-          <div class="modal-content-body">${escHtml(a.body)}</div>
-        </div>`;
-      document.getElementById('article-modal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(e) {
-      if (e.target === document.getElementById('article-modal')) closeModalBtn();
-    }
-    function closeModalBtn() {
-      document.getElementById('article-modal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => render(btn.dataset.cat));
-    });
-
-    // Initial render
-    render('all');
-  </script>
+// ── TOAST ──
+let tt;
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');t.className=`toast ${type}`;
+  t.innerHTML=`<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+  t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3200);
+}
+</script>
 </body>
 </html>
