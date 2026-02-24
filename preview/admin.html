@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OHIA News - Latest updates from the Oral Health Interoperability Alliance">
+  <title>News | Oral Health Interoperability Alliance (OHIA)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    :root {
+      --ohia-blue: #1a5f9e;
+      --ohia-blue-dark: #134a7c;
+      --ohia-teal: #0d9488;
+      --ohia-light: #f0f7ff;
+      --ohia-border: #d1e3f5;
+      --text-dark: #1a2e44;
+      --text-mid: #4a6480;
+      --text-light: #7a95b0;
+      --white: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(26,95,158,0.08);
+      --shadow-md: 0 6px 24px rgba(26,95,158,0.12);
+      --shadow-lg: 0 12px 40px rgba(26,95,158,0.18);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background: #f7fafd;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER (matches site) ── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--ohia-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .header-flex {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.75rem 0;
+      flex-wrap: wrap;
+    }
+    .ohia-logo { height: 56px; width: auto; }
+    .ohia-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ohia-blue-dark);
+      flex: 1;
+    }
+    .main-nav ul { list-style: none; display: flex; gap: 0.25rem; flex-wrap: wrap; }
+    .main-nav a {
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .main-nav a:hover, .main-nav a.active {
+      color: var(--ohia-blue);
+      background: var(--ohia-light);
+    }
+
+    /* ── NEWS HERO ── */
+    .news-hero {
+      background: linear-gradient(135deg, var(--ohia-blue-dark) 0%, var(--ohia-blue) 60%, var(--ohia-teal) 100%);
+      color: var(--white);
+      padding: 4rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .news-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .news-hero .container { position: relative; }
+    .news-hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .news-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .news-hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--ohia-border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 85px;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 0.25rem;
+    }
+    .filter-btn {
+      border: 1.5px solid var(--ohia-border);
+      background: var(--white);
+      color: var(--text-mid);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Roboto', sans-serif;
+    }
+    .filter-btn:hover { border-color: var(--ohia-blue); color: var(--ohia-blue); }
+    .filter-btn.active {
+      background: var(--ohia-blue);
+      border-color: var(--ohia-blue);
+      color: var(--white);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .news-content { padding: 3rem 0 5rem; }
+
+    /* ── FEATURED ARTICLE ── */
+    .featured-article {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 380px;
+      border: 1px solid var(--ohia-border);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .featured-article:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .featured-img {
+      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      overflow: hidden;
+    }
+    .featured-img img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-img .img-placeholder {
+      color: rgba(255,255,255,0.6);
+      font-size: 4rem;
+    }
+    .featured-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ohia-blue);
+      margin-bottom: 1rem;
+    }
+    .featured-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--ohia-blue);
+      border-radius: 2px;
+    }
+    .featured-body h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    .featured-body p {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+    .featured-meta span { display: flex; align-items: center; gap: 0.35rem; }
+
+    /* ── ARTICLE GRID ── */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .article-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--ohia-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: var(--ohia-blue);
+    }
+    .article-card-img {
+      height: 160px;
+      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .article-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .article-card-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 2.5rem; }
+    .article-card-body { padding: 1.35rem; flex: 1; display: flex; flex-direction: column; }
+
+    /* ── CATEGORY BADGES ── */
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    .cat-press   { background: #e8f4fd; color: #1a5f9e; }
+    .cat-blog    { background: #ecfdf5; color: #059669; }
+    .cat-event   { background: #fef3e8; color: #c2610c; }
+    .cat-media   { background: #f3e8ff; color: #7c3aed; }
+
+    .article-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .article-card p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .article-card-meta {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid var(--ohia-border);
+      padding-top: 0.75rem;
+      margin-top: auto;
+    }
+    .article-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--ohia-blue);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .read-more:hover { gap: 0.6rem; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-light);
+    }
+    .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state h3 { font-size: 1.2rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+
+    /* ── MODAL (article detail) ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,40,0.65);
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 760px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      overflow: hidden;
+      margin: auto;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-img {
+      height: 260px;
+      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 4rem; }
+    .modal-body { padding: 2.5rem; }
+    .modal-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .modal-body h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .modal-content-body {
+      font-size: 0.97rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+    }
+    .modal-wrapper { position: relative; }
+
+    /* ── CTA BTN ── */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ohia-blue);
+      color: var(--white);
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      font-family: 'Roboto', sans-serif;
+      border: none;
+      cursor: pointer;
+    }
+    .cta-btn:hover { background: var(--ohia-blue-dark); transform: translateY(-1px); }
+    .cta-btn-sm { padding: 0.5rem 1rem; font-size: 0.82rem; }
+
+    /* ── ADMIN LINK ── */
+    .admin-link-bar {
+      background: var(--ohia-light);
+      border-top: 1px solid var(--ohia-border);
+      padding: 0.75rem 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+    .admin-link-bar a { color: var(--ohia-blue); font-weight: 600; text-decoration: none; }
+    .admin-link-bar a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .featured-article { grid-template-columns: 1fr; }
+      .article-grid { grid-template-columns: 1fr 1fr; }
+      .news-hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .article-grid { grid-template-columns: 1fr; }
+      .filter-bar { top: 70px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <img src="assets/OHIA-no-words.jpg" alt="OHIA Logo" class="ohia-logo" />
+      <h1 class="ohia-title">Oral Health Interoperability Alliance</h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#priorities">Strategic Priorities</a></li>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="index.html#membership">Membership</a></li>
+          <li><a href="news.html" class="active">News</a></li>
+          <li><a href="index.html#get-involved">Get Involved</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="news-hero">
+    <div class="container">
+      <div class="news-hero-label"><i class="fas fa-newspaper"></i> OHIA Newsroom</div>
+      <h1>Latest News &amp; Updates</h1>
+      <p>Press releases, blog posts, event recaps, and media coverage from the Oral Health Interoperability Alliance.</p>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="filter-inner">
+        <span class="filter-label"><i class="fas fa-filter"></i> Filter</span>
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="Press Release">Press Releases</button>
+        <button class="filter-btn" data-cat="Blog Post">Blog Posts</button>
+        <button class="filter-btn" data-cat="Event Recap">Event Recaps</button>
+        <button class="filter-btn" data-cat="Media Mention">Media Mentions</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NEWS -->
+  <main class="news-content">
+    <div class="container">
+      <!-- Featured -->
+      <div id="featured-wrap"></div>
+      <!-- Grid -->
+      <div id="news-grid" class="article-grid"></div>
+      <!-- Empty state -->
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <i class="fas fa-newspaper"></i>
+        <h3>No articles yet</h3>
+        <p>Check back soon for updates from OHIA.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ARTICLE MODAL -->
+  <div class="modal-overlay" id="article-modal" onclick="closeModal(event)">
+    <div class="modal-wrapper">
+      <button class="modal-close" onclick="closeModalBtn()"><i class="fas fa-times"></i></button>
+      <div class="modal" id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN LINK -->
+  <div class="admin-link-bar">
+    <a href="admin.html"><i class="fas fa-lock"></i> OHIA Staff Admin</a>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Oral Health Interoperability Alliance (OHIA). All rights reserved.</p>
+  </footer>
+
+  <script>
+    const CAT_ICONS = {
+      'Press Release': 'fas fa-bullhorn',
+      'Blog Post':     'fas fa-pen-nib',
+      'Event Recap':   'fas fa-calendar-check',
+      'Media Mention': 'fas fa-satellite-dish'
+    };
+    const CAT_CSS = {
+      'Press Release': 'cat-press',
+      'Blog Post':     'cat-blog',
+      'Event Recap':   'cat-event',
+      'Media Mention': 'cat-media'
+    };
+
+    function getArticles() {
+      try { return JSON.parse(localStorage.getItem('ohia_news') || '[]'); } catch(e) { return []; }
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+    }
+
+    function badge(cat) {
+      return `<span class="cat-badge ${CAT_CSS[cat]||'cat-press'}"><i class="${CAT_ICONS[cat]||'fas fa-newspaper'}"></i>${cat}</span>`;
+    }
+
+    function imgOrPlaceholder(src, cls) {
+      if (src) return `<img src="${escHtml(src)}" alt="Article image" onerror="this.style.display='none'">`;
+      return `<div class="img-placeholder"><i class="fas fa-newspaper"></i></div>`;
+    }
+
+    function escHtml(s) {
+      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    let currentFilter = 'all';
+
+    function render(filter) {
+      currentFilter = filter;
+      const all = getArticles().filter(a => a.published);
+      const articles = filter === 'all' ? all : all.filter(a => a.category === filter);
+
+      // Update filter buttons
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.cat === filter);
+      });
+
+      const featWrap = document.getElementById('featured-wrap');
+      const grid = document.getElementById('news-grid');
+      const empty = document.getElementById('empty-state');
+
+      if (!articles.length) {
+        featWrap.innerHTML = '';
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      // Featured = first article
+      const feat = articles[0];
+      featWrap.innerHTML = `
+        <div class="featured-article" onclick="openModal(${feat.id})">
+          <div class="featured-img">${imgOrPlaceholder(feat.imageUrl)}</div>
+          <div class="featured-body">
+            <div class="featured-label">Featured</div>
+            ${badge(feat.category)}
+            <h2>${escHtml(feat.title)}</h2>
+            <p>${escHtml(feat.excerpt)}</p>
+            <div class="featured-meta">
+              <span><i class="fas fa-calendar"></i>${formatDate(feat.date)}</span>
+              ${feat.author ? `<span><i class="fas fa-user"></i>${escHtml(feat.author)}</span>` : ''}
+            </div>
+            <span class="read-more"><i class="fas fa-arrow-right"></i> Read article</span>
+          </div>
+        </div>`;
+
+      // Grid = rest
+      const rest = articles.slice(1);
+      if (!rest.length) { grid.innerHTML = ''; return; }
+      grid.innerHTML = rest.map(a => `
+        <div class="article-card" onclick="openModal(${a.id})">
+          <div class="article-card-img">${imgOrPlaceholder(a.imageUrl)}</div>
+          <div class="article-card-body">
+            ${badge(a.category)}
+            <h3>${escHtml(a.title)}</h3>
+            <p>${escHtml(a.excerpt)}</p>
+            <div class="article-card-meta">
+              <span><i class="fas fa-calendar"></i>${formatDate(a.date)}</span>
+              ${a.author ? `<span><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
+            </div>
+          </div>
+        </div>`).join('');
+    }
+
+    function openModal(id) {
+      const articles = getArticles();
+      const a = articles.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('modal-content').innerHTML = `
+        <div class="modal-img">${imgOrPlaceholder(a.imageUrl)}</div>
+        <div class="modal-body">
+          <div class="modal-meta">
+            ${badge(a.category)}
+            <span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;">
+              <i class="fas fa-calendar"></i>${formatDate(a.date)}
+            </span>
+            ${a.author ? `<span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;"><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
+          </div>
+          <h2>${escHtml(a.title)}</h2>
+          <div class="modal-content-body">${escHtml(a.body)}</div>
+        </div>`;
+      document.getElementById('article-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('article-modal')) closeModalBtn();
+    }
+    function closeModalBtn() {
+      document.getElementById('article-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => render(btn.dataset.cat));
+    });
+
+    // Initial render
+    render('all');
+  </script>
+</body>
+</html>
