@@ -21,461 +21,120 @@
       --white: #ffffff;
       --shadow-sm: 0 2px 8px rgba(26,95,158,0.08);
       --shadow-md: 0 6px 24px rgba(26,95,158,0.12);
-      --shadow-lg: 0 12px 40px rgba(26,95,158,0.18);
       --radius: 12px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; color: var(--text-dark); background: #f7fafd; line-height: 1.7; }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: var(--text-dark);
-      background: #f7fafd;
-      line-height: 1.7;
-    }
-
-    /* ── HEADER (matches site) ── */
-    .site-header {
-      background: var(--white);
-      border-bottom: 2px solid var(--ohia-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-sm);
-    }
+    /* HEADER */
+    .site-header { background: var(--white); border-bottom: 2px solid var(--ohia-border); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .header-flex {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0.75rem 0;
-      flex-wrap: wrap;
-    }
+    .header-flex { display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 0; flex-wrap: wrap; }
     .ohia-logo { height: 56px; width: auto; }
-    .ohia-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--ohia-blue-dark);
-      flex: 1;
-    }
+    .ohia-title { font-family: 'Montserrat', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--ohia-blue-dark); flex: 1; }
     .main-nav ul { list-style: none; display: flex; gap: 0.25rem; flex-wrap: wrap; }
-    .main-nav a {
-      color: var(--text-mid);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    .main-nav a:hover, .main-nav a.active {
-      color: var(--ohia-blue);
-      background: var(--ohia-light);
-    }
+    .main-nav a { color: var(--text-mid); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
+    .main-nav a:hover, .main-nav a.active { color: var(--ohia-blue); background: var(--ohia-light); }
 
-    /* ── NEWS HERO ── */
-    .news-hero {
-      background: linear-gradient(135deg, var(--ohia-blue-dark) 0%, var(--ohia-blue) 60%, var(--ohia-teal) 100%);
-      color: var(--white);
-      padding: 4rem 0 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .news-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
+    /* HERO */
+    .news-hero { background: linear-gradient(135deg, var(--ohia-blue-dark) 0%, var(--ohia-blue) 60%, var(--ohia-teal) 100%); color: var(--white); padding: 4rem 0 3rem; position: relative; overflow: hidden; }
+    .news-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
     .news-hero .container { position: relative; }
-    .news-hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 50px;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-    .news-hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.75rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-    .news-hero p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 600px;
-    }
+    .news-hero-label { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 50px; padding: 0.3rem 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .news-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .news-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; }
+    .confluence-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 0.3rem 1rem; font-size: 0.78rem; margin-top: 1.25rem; color: rgba(255,255,255,0.85); }
 
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--ohia-border);
-      padding: 1rem 0;
-      position: sticky;
-      top: 85px;
-      z-index: 90;
-      box-shadow: var(--shadow-sm);
-    }
-    .filter-inner {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .filter-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-right: 0.25rem;
-    }
-    .filter-btn {
-      border: 1.5px solid var(--ohia-border);
-      background: var(--white);
-      color: var(--text-mid);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.35rem 0.9rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Roboto', sans-serif;
-    }
+    /* FILTER */
+    .filter-bar { background: var(--white); border-bottom: 1px solid var(--ohia-border); padding: 1rem 0; position: sticky; top: 85px; z-index: 90; box-shadow: var(--shadow-sm); }
+    .filter-inner { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-label { font-size: 0.8rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 0.25rem; }
+    .filter-btn { border: 1.5px solid var(--ohia-border); background: var(--white); color: var(--text-mid); font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.9rem; border-radius: 50px; cursor: pointer; transition: all 0.2s; font-family: 'Roboto', sans-serif; }
     .filter-btn:hover { border-color: var(--ohia-blue); color: var(--ohia-blue); }
-    .filter-btn.active {
-      background: var(--ohia-blue);
-      border-color: var(--ohia-blue);
-      color: var(--white);
-    }
+    .filter-btn.active { background: var(--ohia-blue); border-color: var(--ohia-blue); color: var(--white); }
 
-    /* ── MAIN CONTENT ── */
+    /* MAIN */
     .news-content { padding: 3rem 0 5rem; }
 
-    /* ── FEATURED ARTICLE ── */
-    .featured-article {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      margin-bottom: 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 380px;
-      border: 1px solid var(--ohia-border);
-      transition: box-shadow 0.3s, transform 0.3s;
-    }
-    .featured-article:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-3px);
-    }
-    .featured-img {
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-      overflow: hidden;
-    }
-    .featured-img img { width: 100%; height: 100%; object-fit: cover; }
-    .featured-img .img-placeholder {
-      color: rgba(255,255,255,0.6);
-      font-size: 4rem;
-    }
-    .featured-body {
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .featured-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ohia-blue);
-      margin-bottom: 1rem;
-    }
-    .featured-label::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--ohia-blue);
-      border-radius: 2px;
-    }
-    .featured-body h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-    .featured-body p {
-      color: var(--text-mid);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-    }
-    .featured-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.8rem;
-      color: var(--text-light);
-      margin-bottom: 1.5rem;
-    }
-    .featured-meta span { display: flex; align-items: center; gap: 0.35rem; }
+    /* FEATURED */
+    .featured-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--ohia-border); box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 3rem; display: grid; grid-template-columns: 1fr 1fr; transition: box-shadow 0.3s, transform 0.3s; cursor: pointer; }
+    .featured-card:hover { box-shadow: 0 12px 40px rgba(26,95,158,0.18); transform: translateY(-2px); }
+    .featured-image { background: linear-gradient(135deg, var(--ohia-blue-dark), var(--ohia-teal)); min-height: 280px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); font-size: 4rem; }
+    .featured-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .featured-label { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--ohia-light); color: var(--ohia-blue); border-radius: 50px; padding: 0.25rem 0.85rem; font-size: 0.72rem; font-weight: 700; margin-bottom: 1rem; width: fit-content; }
+    .featured-title { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; margin-bottom: 0.75rem; }
+    .featured-excerpt { color: var(--text-mid); font-size: 0.93rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .featured-meta { font-size: 0.78rem; color: var(--text-light); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .featured-meta i { color: var(--ohia-blue); }
+    .read-more { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ohia-blue); font-weight: 600; font-size: 0.88rem; margin-top: 1rem; text-decoration: none; }
+    .read-more:hover { color: var(--ohia-blue-dark); }
+    .read-more i { font-size: 0.75rem; }
 
-    /* ── ARTICLE GRID ── */
-    .article-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .article-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      border: 1px solid var(--ohia-border);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .article-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-4px);
-      border-color: var(--ohia-blue);
-    }
-    .article-card-img {
-      height: 160px;
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .article-card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .article-card-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 2.5rem; }
-    .article-card-body { padding: 1.35rem; flex: 1; display: flex; flex-direction: column; }
+    /* GRID */
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .news-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--ohia-border); box-shadow: var(--shadow-sm); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; cursor: pointer; }
+    .news-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .card-image { height: 160px; background: linear-gradient(135deg, var(--ohia-blue-dark), var(--ohia-teal)); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 2.5rem; overflow: hidden; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .card-category { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; margin-bottom: 0.75rem; width: fit-content; background: var(--ohia-light); color: var(--ohia-blue); }
+    .card-title { font-family: 'Montserrat', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text-dark); line-height: 1.35; margin-bottom: 0.6rem; }
+    .card-excerpt { color: var(--text-mid); font-size: 0.84rem; line-height: 1.65; flex: 1; margin-bottom: 1rem; }
+    .card-meta { font-size: 0.74rem; color: var(--text-light); display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid #f0f4f9; padding-top: 0.75rem; margin-top: auto; }
+    .card-meta i { color: var(--ohia-blue); }
+    .card-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--ohia-blue); font-weight: 600; font-size: 0.8rem; margin-top: 0.5rem; text-decoration: none; }
+    .card-link:hover { color: var(--ohia-blue-dark); }
 
-    /* ── CATEGORY BADGES ── */
-    .cat-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-      margin-bottom: 0.75rem;
-      width: fit-content;
-    }
-    .cat-press   { background: #e8f4fd; color: #1a5f9e; }
-    .cat-blog    { background: #ecfdf5; color: #059669; }
-    .cat-event   { background: #fef3e8; color: #c2610c; }
-    .cat-media   { background: #f3e8ff; color: #7c3aed; }
+    /* LOADING / EMPTY / ERROR */
+    .state-box { text-align: center; padding: 4rem 2rem; }
+    .state-box i { font-size: 3rem; display: block; margin-bottom: 1rem; opacity: 0.35; }
+    .state-box h3 { font-size: 1.1rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .state-box p { font-size: 0.9rem; color: var(--text-light); }
+    .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid var(--ohia-border); border-top-color: var(--ohia-blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .article-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.4;
-      margin-bottom: 0.6rem;
-    }
-    .article-card p {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      line-height: 1.6;
-      flex: 1;
-      margin-bottom: 1rem;
-    }
-    .article-card-meta {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-top: 1px solid var(--ohia-border);
-      padding-top: 0.75rem;
-      margin-top: auto;
-    }
-    .article-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    /* CONFLUENCE LINK */
+    .confluence-link-bar { background: var(--ohia-light); border-top: 1px solid var(--ohia-border); border-bottom: 1px solid var(--ohia-border); padding: 0.75rem 0; margin-bottom: 2rem; }
+    .confluence-link-bar .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .confluence-link-bar p { font-size: 0.82rem; color: var(--text-mid); }
+    .confluence-link-bar a { color: var(--ohia-blue); font-weight: 600; font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .confluence-link-bar a:hover { text-decoration: underline; }
 
-    .read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--ohia-blue);
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: gap 0.2s;
-    }
-    .read-more:hover { gap: 0.6rem; }
+    /* SECTION HEADING */
+    .section-heading { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
+    .section-heading h2 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text-dark); }
+    .section-heading .line { flex: 1; height: 2px; background: var(--ohia-border); border-radius: 2px; }
+    .section-heading .count { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 0.2rem 0.75rem; border-radius: 50px; background: var(--ohia-light); color: var(--ohia-blue); }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 5rem 2rem;
-      color: var(--text-light);
-    }
-    .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
-    .empty-state h3 { font-size: 1.2rem; color: var(--text-mid); margin-bottom: 0.5rem; }
-
-    /* ── MODAL (article detail) ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10,20,40,0.65);
-      z-index: 200;
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem 1rem;
-      overflow-y: auto;
-      backdrop-filter: blur(4px);
-    }
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; }
     .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--white);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 760px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-      overflow: hidden;
-      margin: auto;
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .modal-img {
-      height: 260px;
-      background: linear-gradient(135deg, var(--ohia-blue), var(--ohia-teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
-    .modal-img .img-placeholder { color: rgba(255,255,255,0.5); font-size: 4rem; }
-    .modal-body { padding: 2.5rem; }
-    .modal-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-    .modal-body h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--text-dark);
-      line-height: 1.3;
-      margin-bottom: 1.5rem;
-    }
-    .modal-content-body {
-      font-size: 0.97rem;
-      color: var(--text-mid);
-      line-height: 1.85;
-      white-space: pre-wrap;
-    }
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(255,255,255,0.9);
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-sm);
-      z-index: 10;
-    }
-    .modal-wrapper { position: relative; }
+    .modal { background: var(--white); border-radius: var(--radius); max-width: 760px; width: 100%; box-shadow: 0 24px 80px rgba(0,0,0,0.25); position: relative; margin: auto; }
+    .modal-header { padding: 2rem 2rem 1rem; border-bottom: 1px solid var(--ohia-border); }
+    .modal-category { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 50px; background: var(--ohia-light); color: var(--ohia-blue); margin-bottom: 0.75rem; }
+    .modal-title { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; line-height: 1.3; color: var(--text-dark); margin-bottom: 0.75rem; }
+    .modal-meta { font-size: 0.8rem; color: var(--text-light); display: flex; gap: 1rem; flex-wrap: wrap; }
+    .modal-meta i { color: var(--ohia-blue); }
+    .modal-body { padding: 1.75rem 2rem 2rem; }
+    .modal-body p { color: var(--text-mid); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .modal-body h1, .modal-body h2, .modal-body h3 { font-family: 'Montserrat', sans-serif; color: var(--text-dark); margin: 1.5rem 0 0.75rem; }
+    .modal-body h1 { font-size: 1.3rem; } .modal-body h2 { font-size: 1.15rem; } .modal-body h3 { font-size: 1rem; }
+    .modal-body ul, .modal-body ol { padding-left: 1.5rem; margin-bottom: 1rem; color: var(--text-mid); font-size: 0.95rem; line-height: 1.8; }
+    .modal-body a { color: var(--ohia-blue); }
+    .modal-footer { padding: 1rem 2rem 1.5rem; border-top: 1px solid var(--ohia-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--ohia-light); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-mid); font-size: 1rem; transition: all 0.2s; }
+    .modal-close:hover { background: var(--ohia-border); color: var(--text-dark); }
+    .btn-confluence { display: inline-flex; align-items: center; gap: 0.5rem; background: #0052CC; color: white; padding: 0.65rem 1.4rem; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .btn-confluence:hover { background: #0043A8; }
 
-    /* ── CTA BTN ── */
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--ohia-blue);
-      color: var(--white);
-      padding: 0.65rem 1.4rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      font-family: 'Roboto', sans-serif;
-      border: none;
-      cursor: pointer;
-    }
-    .cta-btn:hover { background: var(--ohia-blue-dark); transform: translateY(-1px); }
-    .cta-btn-sm { padding: 0.5rem 1rem; font-size: 0.82rem; }
+    .site-footer { background: var(--text-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 2rem; font-size: 0.85rem; }
 
-    /* ── ADMIN LINK ── */
-    .admin-link-bar {
-      background: var(--ohia-light);
-      border-top: 1px solid var(--ohia-border);
-      padding: 0.75rem 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-light);
-    }
-    .admin-link-bar a { color: var(--ohia-blue); font-weight: 600; text-decoration: none; }
-    .admin-link-bar a:hover { text-decoration: underline; }
-
-    /* ── FOOTER ── */
-    .site-footer {
-      background: var(--text-dark);
-      color: rgba(255,255,255,0.7);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 900px) {
-      .featured-article { grid-template-columns: 1fr; }
-      .article-grid { grid-template-columns: 1fr 1fr; }
-      .news-hero h1 { font-size: 2rem; }
-    }
-    @media (max-width: 600px) {
-      .article-grid { grid-template-columns: 1fr; }
-      .filter-bar { top: 70px; }
-    }
+    @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr 1fr; } .featured-card { grid-template-columns: 1fr; } .featured-image { min-height: 180px; } }
+    @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } .news-hero h1 { font-size: 2rem; } }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-flex">
       <img src="assets/OHIA-no-words.jpg" alt="OHIA Logo" class="ohia-logo" />
@@ -485,9 +144,9 @@
           <li><a href="index.html#home">Home</a></li>
           <li><a href="index.html#about">About Us</a></li>
           <li><a href="index.html#priorities">Strategic Priorities</a></li>
-          <li><a href="index.html#events">Events</a></li>
-          <li><a href="index.html#membership">Membership</a></li>
+          <li><a href="events.html">Events</a></li>
           <li><a href="news.html" class="active">News</a></li>
+          <li><a href="index.html#membership">Membership</a></li>
           <li><a href="index.html#get-involved">Get Involved</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
@@ -495,56 +154,65 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section class="news-hero">
     <div class="container">
       <div class="news-hero-label"><i class="fas fa-newspaper"></i> OHIA Newsroom</div>
       <h1>Latest News &amp; Updates</h1>
       <p>Press releases, blog posts, event recaps, and media coverage from the Oral Health Interoperability Alliance.</p>
+      <div class="confluence-badge">
+        <i class="fab fa-atlassian"></i> Content powered by Confluence
+      </div>
     </div>
   </section>
 
-  <!-- FILTER BAR -->
+  <div class="confluence-link-bar">
+    <div class="container">
+      <p><i class="fab fa-atlassian"></i> Articles are published directly from the OHIA Confluence workspace.</p>
+      <a href="https://oralhealth.atlassian.net/wiki/spaces/PM/overview" target="_blank" rel="noopener">
+        <i class="fas fa-external-link-alt"></i> View Confluence Space
+      </a>
+    </div>
+  </div>
+
   <div class="filter-bar">
     <div class="container">
       <div class="filter-inner">
         <span class="filter-label"><i class="fas fa-filter"></i> Filter</span>
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Press Release">Press Releases</button>
-        <button class="filter-btn" data-cat="Blog Post">Blog Posts</button>
-        <button class="filter-btn" data-cat="Event Recap">Event Recaps</button>
-        <button class="filter-btn" data-cat="Media Mention">Media Mentions</button>
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="blogpost">Blog Posts</button>
+        <button class="filter-btn" data-filter="page">Pages</button>
       </div>
     </div>
   </div>
 
-  <!-- MAIN NEWS -->
   <main class="news-content">
     <div class="container">
-      <!-- Featured -->
-      <div id="featured-wrap"></div>
-      <!-- Grid -->
-      <div id="news-grid" class="article-grid"></div>
-      <!-- Empty state -->
-      <div id="empty-state" class="empty-state" style="display:none;">
-        <i class="fas fa-newspaper"></i>
-        <h3>No articles yet</h3>
-        <p>Check back soon for updates from OHIA.</p>
+      <div id="news-wrap">
+        <div class="state-box">
+          <div class="spinner"></div>
+          <h3>Loading news from Confluence...</h3>
+        </div>
       </div>
     </div>
   </main>
 
   <!-- ARTICLE MODAL -->
-  <div class="modal-overlay" id="article-modal" onclick="closeModal(event)">
-    <div class="modal-wrapper">
-      <button class="modal-close" onclick="closeModalBtn()"><i class="fas fa-times"></i></button>
-      <div class="modal" id="modal-content"></div>
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModalDirect()"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-category" id="modal-category"></div>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="modal-meta" id="modal-meta"></div>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <span style="font-size:0.8rem;color:var(--text-light)"><i class="fab fa-atlassian"></i> Published via Confluence</span>
+        <a href="#" id="modal-confluence-link" class="btn-confluence" target="_blank" rel="noopener">
+          <i class="fas fa-external-link-alt"></i> View in Confluence
+        </a>
+      </div>
     </div>
-  </div>
-
-  <!-- ADMIN LINK -->
-  <div class="admin-link-bar">
-    <a href="admin.html"><i class="fas fa-lock"></i> OHIA Staff Admin</a>
   </div>
 
   <footer class="site-footer">
@@ -552,138 +220,185 @@
   </footer>
 
   <script>
-    const CAT_ICONS = {
-      'Press Release': 'fas fa-bullhorn',
-      'Blog Post':     'fas fa-pen-nib',
-      'Event Recap':   'fas fa-calendar-check',
-      'Media Mention': 'fas fa-satellite-dish'
-    };
-    const CAT_CSS = {
-      'Press Release': 'cat-press',
-      'Blog Post':     'cat-blog',
-      'Event Recap':   'cat-event',
-      'Media Mention': 'cat-media'
-    };
-
-    function getArticles() {
-      try { return JSON.parse(localStorage.getItem('ohia_news') || '[]'); } catch(e) { return []; }
-    }
-
-    function formatDate(iso) {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-    }
-
-    function badge(cat) {
-      return `<span class="cat-badge ${CAT_CSS[cat]||'cat-press'}"><i class="${CAT_ICONS[cat]||'fas fa-newspaper'}"></i>${cat}</span>`;
-    }
-
-    function imgOrPlaceholder(src, cls) {
-      if (src) return `<img src="${escHtml(src)}" alt="Article image" onerror="this.style.display='none'">`;
-      return `<div class="img-placeholder"><i class="fas fa-newspaper"></i></div>`;
-    }
-
-    function escHtml(s) {
-      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
+    const CONFLUENCE_BASE = 'https://oralhealth.atlassian.net/wiki';
+    const SPACE_KEY = 'PM';
+    let allArticles = [];
     let currentFilter = 'all';
 
-    function render(filter) {
-      currentFilter = filter;
-      const all = getArticles().filter(a => a.published);
-      const articles = filter === 'all' ? all : all.filter(a => a.category === filter);
+    // ── FETCH FROM CONFLUENCE ──
+    async function loadNews() {
+      try {
+        // Fetch both blog posts and pages
+        const [blogsRes, pagesRes] = await Promise.all([
+          fetch(`${CONFLUENCE_BASE}/rest/api/content?spaceKey=${SPACE_KEY}&type=blogpost&limit=50&expand=body.view,history,version&orderby=history.createdDate+desc`),
+          fetch(`${CONFLUENCE_BASE}/rest/api/content?spaceKey=${SPACE_KEY}&type=page&limit=50&expand=body.view,history,version&orderby=history.createdDate+desc`)
+        ]);
 
-      // Update filter buttons
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.cat === filter);
-      });
+        const blogsData  = blogsRes.ok  ? await blogsRes.json()  : { results: [] };
+        const pagesData  = pagesRes.ok  ? await pagesRes.json()  : { results: [] };
 
-      const featWrap = document.getElementById('featured-wrap');
-      const grid = document.getElementById('news-grid');
-      const empty = document.getElementById('empty-state');
+        const blogs = (blogsData.results || []).map(item => ({ ...item, contentType: 'blogpost' }));
+        const pages = (pagesData.results || [])
+          .filter(p => p.title !== 'Overview') // exclude the space homepage
+          .map(item => ({ ...item, contentType: 'page' }));
 
-      if (!articles.length) {
-        featWrap.innerHTML = '';
-        grid.innerHTML = '';
-        empty.style.display = 'block';
-        return;
+        allArticles = [...blogs, ...pages].sort((a, b) => {
+          return new Date(b.history?.createdDate || 0) - new Date(a.history?.createdDate || 0);
+        });
+
+        if (!allArticles.length) {
+          showEmpty();
+          return;
+        }
+
+        render(currentFilter);
+
+      } catch (err) {
+        console.error('Confluence fetch error:', err);
+        showError();
       }
-      empty.style.display = 'none';
-
-      // Featured = first article
-      const feat = articles[0];
-      featWrap.innerHTML = `
-        <div class="featured-article" onclick="openModal(${feat.id})">
-          <div class="featured-img">${imgOrPlaceholder(feat.imageUrl)}</div>
-          <div class="featured-body">
-            <div class="featured-label">Featured</div>
-            ${badge(feat.category)}
-            <h2>${escHtml(feat.title)}</h2>
-            <p>${escHtml(feat.excerpt)}</p>
-            <div class="featured-meta">
-              <span><i class="fas fa-calendar"></i>${formatDate(feat.date)}</span>
-              ${feat.author ? `<span><i class="fas fa-user"></i>${escHtml(feat.author)}</span>` : ''}
-            </div>
-            <span class="read-more"><i class="fas fa-arrow-right"></i> Read article</span>
-          </div>
-        </div>`;
-
-      // Grid = rest
-      const rest = articles.slice(1);
-      if (!rest.length) { grid.innerHTML = ''; return; }
-      grid.innerHTML = rest.map(a => `
-        <div class="article-card" onclick="openModal(${a.id})">
-          <div class="article-card-img">${imgOrPlaceholder(a.imageUrl)}</div>
-          <div class="article-card-body">
-            ${badge(a.category)}
-            <h3>${escHtml(a.title)}</h3>
-            <p>${escHtml(a.excerpt)}</p>
-            <div class="article-card-meta">
-              <span><i class="fas fa-calendar"></i>${formatDate(a.date)}</span>
-              ${a.author ? `<span><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
-            </div>
-          </div>
-        </div>`).join('');
     }
 
-    function openModal(id) {
-      const articles = getArticles();
-      const a = articles.find(x => x.id === id);
-      if (!a) return;
-      document.getElementById('modal-content').innerHTML = `
-        <div class="modal-img">${imgOrPlaceholder(a.imageUrl)}</div>
-        <div class="modal-body">
-          <div class="modal-meta">
-            ${badge(a.category)}
-            <span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;">
-              <i class="fas fa-calendar"></i>${formatDate(a.date)}
-            </span>
-            ${a.author ? `<span style="font-size:0.8rem;color:#7a95b0;display:flex;align-items:center;gap:0.35rem;"><i class="fas fa-user"></i>${escHtml(a.author)}</span>` : ''}
+    // ── RENDER ──
+    function render(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+
+      const items = filter === 'all' ? allArticles : allArticles.filter(a => a.contentType === filter);
+
+      if (!items.length) { showEmpty(); return; }
+
+      const wrap = document.getElementById('news-wrap');
+      const featured = items[0];
+      const rest = items.slice(1);
+
+      let html = '';
+
+      // Featured card
+      html += `
+        <div class="section-heading">
+          <h2>Featured</h2>
+          <div class="line"></div>
+        </div>
+        <div class="featured-card" onclick="openModal(${JSON.stringify(featured.id).replace(/"/g,'&quot;')})">
+          <div class="featured-image"><i class="fas fa-newspaper"></i></div>
+          <div class="featured-body">
+            <div class="featured-label">
+              <i class="fas fa-${featured.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i>
+              ${featured.contentType === 'blogpost' ? 'Blog Post' : 'Page'}
+            </div>
+            <div class="featured-title">${esc(featured.title)}</div>
+            <div class="featured-excerpt">${getExcerpt(featured)}</div>
+            <div class="featured-meta">
+              <span><i class="fas fa-calendar"></i> ${fmtDate(featured.history?.createdDate)}</span>
+              ${featured.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(featured.history.createdBy.displayName)}</span>` : ''}
+            </div>
+            <a class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
           </div>
-          <h2>${escHtml(a.title)}</h2>
-          <div class="modal-content-body">${escHtml(a.body)}</div>
         </div>`;
-      document.getElementById('article-modal').classList.add('open');
+
+      // Grid
+      if (rest.length) {
+        html += `
+          <div class="section-heading" style="margin-top:2.5rem">
+            <h2>All Articles</h2>
+            <div class="line"></div>
+            <span class="count">${items.length} Article${items.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="news-grid">
+            ${rest.map(a => `
+              <div class="news-card" onclick="openModal('${a.id}')">
+                <div class="card-image"><i class="fas fa-newspaper"></i></div>
+                <div class="card-body">
+                  <div class="card-category">
+                    <i class="fas fa-${a.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i>
+                    ${a.contentType === 'blogpost' ? 'Blog Post' : 'Page'}
+                  </div>
+                  <div class="card-title">${esc(a.title)}</div>
+                  <div class="card-excerpt">${getExcerpt(a)}</div>
+                  <div class="card-meta">
+                    <span><i class="fas fa-calendar"></i> ${fmtDate(a.history?.createdDate)}</span>
+                    ${a.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(a.history.createdBy.displayName)}</span>` : ''}
+                  </div>
+                  <a class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>`).join('')}
+          </div>`;
+      }
+
+      wrap.innerHTML = html;
+    }
+
+    // ── MODAL ──
+    function openModal(id) {
+      const a = allArticles.find(x => x.id === id || x.id === String(id));
+      if (!a) return;
+
+      document.getElementById('modal-category').innerHTML =
+        `<i class="fas fa-${a.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i> ${a.contentType === 'blogpost' ? 'Blog Post' : 'Page'}`;
+      document.getElementById('modal-title').textContent = a.title;
+      document.getElementById('modal-meta').innerHTML = `
+        <span><i class="fas fa-calendar"></i> ${fmtDate(a.history?.createdDate)}</span>
+        ${a.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(a.history.createdBy.displayName)}</span>` : ''}`;
+
+      // Render Confluence body HTML, stripping any Confluence-specific wrapper markup
+      const bodyHtml = a.body?.view?.value || '<p>No content available.</p>';
+      document.getElementById('modal-body').innerHTML = bodyHtml;
+
+      const confluenceUrl = `${CONFLUENCE_BASE}/spaces/${SPACE_KEY}/${a.contentType === 'blogpost' ? 'blog' : 'pages'}/${a.id}`;
+      document.getElementById('modal-confluence-link').href = confluenceUrl;
+
+      document.getElementById('modal-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeModal(e) {
-      if (e.target === document.getElementById('article-modal')) closeModalBtn();
+      if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
     }
-    function closeModalBtn() {
-      document.getElementById('article-modal').classList.remove('open');
+    function closeModalDirect() {
+      document.getElementById('modal-overlay').classList.remove('open');
       document.body.style.overflow = '';
     }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+    // ── STATES ──
+    function showEmpty() {
+      document.getElementById('news-wrap').innerHTML = `
+        <div class="state-box">
+          <i class="fas fa-newspaper"></i>
+          <h3>No articles yet</h3>
+          <p>Check back soon for updates from OHIA, or <a href="https://oralhealth.atlassian.net/wiki/spaces/PM/overview" target="_blank" style="color:var(--ohia-blue)">visit the Confluence space</a> directly.</p>
+        </div>`;
+    }
 
+    function showError() {
+      document.getElementById('news-wrap').innerHTML = `
+        <div class="state-box">
+          <i class="fas fa-exclamation-circle" style="color:#dc2626"></i>
+          <h3>Could not load articles</h3>
+          <p>There was a problem connecting to Confluence. Please try refreshing the page, or <a href="https://oralhealth.atlassian.net/wiki/spaces/PM/overview" target="_blank" style="color:var(--ohia-blue)">visit the Confluence space directly</a>.</p>
+        </div>`;
+    }
+
+    // ── HELPERS ──
+    function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function fmtDate(iso) {
+      if (!iso) return '';
+      return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    function getExcerpt(a) {
+      const raw = a.body?.view?.value || '';
+      const text = raw.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      return esc(text.length > 180 ? text.slice(0, 180) + '…' : text) || 'Click to read the full article.';
+    }
+
+    // ── FILTERS ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => render(btn.dataset.cat));
+      btn.addEventListener('click', () => render(btn.dataset.filter));
     });
 
-    // Initial render
-    render('all');
+    // ── INIT ──
+    loadNews();
   </script>
 </body>
 </html>
