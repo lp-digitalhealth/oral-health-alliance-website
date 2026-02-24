@@ -220,41 +220,40 @@
   </footer>
 
   <script>
-    const CONFLUENCE_BASE = 'https://oralhealth.atlassian.net/wiki';
-    const SPACE_KEY = 'PM';
+    // Confluence RSS feed URL — public feed, no auth needed, no CORS issues
+    const RSS_URL = 'https://oralhealth.atlassian.net/wiki/createrssfeed.action?types=blogpost&spaces=PM&title=OHIA+News&maxResults=50&publicFeed=true';
+    // We use rss2json as a free RSS-to-JSON bridge (handles CORS for us)
+    const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
     let allArticles = [];
     let currentFilter = 'all';
 
-    // ── FETCH FROM CONFLUENCE ──
+    // ── FETCH RSS ──
     async function loadNews() {
       try {
-        // Fetch both blog posts and pages
-        const [blogsRes, pagesRes] = await Promise.all([
-          fetch(`${CONFLUENCE_BASE}/rest/api/content?spaceKey=${SPACE_KEY}&type=blogpost&limit=50&expand=body.view,history,version&orderby=history.createdDate+desc`),
-          fetch(`${CONFLUENCE_BASE}/rest/api/content?spaceKey=${SPACE_KEY}&type=page&limit=50&expand=body.view,history,version&orderby=history.createdDate+desc`)
-        ]);
+        const res = await fetch(RSS2JSON + encodeURIComponent(RSS_URL));
+        if (!res.ok) throw new Error('RSS fetch failed');
+        const data = await res.json();
 
-        const blogsData  = blogsRes.ok  ? await blogsRes.json()  : { results: [] };
-        const pagesData  = pagesRes.ok  ? await pagesRes.json()  : { results: [] };
-
-        const blogs = (blogsData.results || []).map(item => ({ ...item, contentType: 'blogpost' }));
-        const pages = (pagesData.results || [])
-          .filter(p => p.title !== 'Overview') // exclude the space homepage
-          .map(item => ({ ...item, contentType: 'page' }));
-
-        allArticles = [...blogs, ...pages].sort((a, b) => {
-          return new Date(b.history?.createdDate || 0) - new Date(a.history?.createdDate || 0);
-        });
-
-        if (!allArticles.length) {
+        if (data.status !== 'ok' || !data.items || !data.items.length) {
           showEmpty();
           return;
         }
 
+        allArticles = data.items.map((item, i) => ({
+          id: i,
+          title: item.title || 'Untitled',
+          link: item.link || '',
+          date: item.pubDate || '',
+          author: item.author || '',
+          description: item.description || '',
+          content: item.content || item.description || ''
+        }));
+
         render(currentFilter);
 
       } catch (err) {
-        console.error('Confluence fetch error:', err);
+        console.error('RSS fetch error:', err);
         showError();
       }
     }
@@ -262,10 +261,10 @@
     // ── RENDER ──
     function render(filter) {
       currentFilter = filter;
+      // RSS only has blog posts so hide filter bar for now
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
 
-      const items = filter === 'all' ? allArticles : allArticles.filter(a => a.contentType === filter);
-
+      const items = allArticles;
       if (!items.length) { showEmpty(); return; }
 
       const wrap = document.getElementById('news-wrap');
@@ -280,24 +279,20 @@
           <h2>Featured</h2>
           <div class="line"></div>
         </div>
-        <div class="featured-card" onclick="openModal(${JSON.stringify(featured.id).replace(/"/g,'&quot;')})">
+        <div class="featured-card" onclick="openModal(0)">
           <div class="featured-image"><i class="fas fa-newspaper"></i></div>
           <div class="featured-body">
-            <div class="featured-label">
-              <i class="fas fa-${featured.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i>
-              ${featured.contentType === 'blogpost' ? 'Blog Post' : 'Page'}
-            </div>
+            <div class="featured-label"><i class="fas fa-pen-nib"></i> Blog Post</div>
             <div class="featured-title">${esc(featured.title)}</div>
             <div class="featured-excerpt">${getExcerpt(featured)}</div>
             <div class="featured-meta">
-              <span><i class="fas fa-calendar"></i> ${fmtDate(featured.history?.createdDate)}</span>
-              ${featured.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(featured.history.createdBy.displayName)}</span>` : ''}
+              <span><i class="fas fa-calendar"></i> ${fmtDate(featured.date)}</span>
+              ${featured.author ? `<span><i class="fas fa-user"></i> ${esc(featured.author)}</span>` : ''}
             </div>
             <a class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>`;
 
-      // Grid
       if (rest.length) {
         html += `
           <div class="section-heading" style="margin-top:2.5rem">
@@ -306,19 +301,16 @@
             <span class="count">${items.length} Article${items.length !== 1 ? 's' : ''}</span>
           </div>
           <div class="news-grid">
-            ${rest.map(a => `
-              <div class="news-card" onclick="openModal('${a.id}')">
+            ${rest.map((a, i) => `
+              <div class="news-card" onclick="openModal(${i + 1})">
                 <div class="card-image"><i class="fas fa-newspaper"></i></div>
                 <div class="card-body">
-                  <div class="card-category">
-                    <i class="fas fa-${a.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i>
-                    ${a.contentType === 'blogpost' ? 'Blog Post' : 'Page'}
-                  </div>
+                  <div class="card-category"><i class="fas fa-pen-nib"></i> Blog Post</div>
                   <div class="card-title">${esc(a.title)}</div>
                   <div class="card-excerpt">${getExcerpt(a)}</div>
                   <div class="card-meta">
-                    <span><i class="fas fa-calendar"></i> ${fmtDate(a.history?.createdDate)}</span>
-                    ${a.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(a.history.createdBy.displayName)}</span>` : ''}
+                    <span><i class="fas fa-calendar"></i> ${fmtDate(a.date)}</span>
+                    ${a.author ? `<span><i class="fas fa-user"></i> ${esc(a.author)}</span>` : ''}
                   </div>
                   <a class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
                 </div>
@@ -330,23 +322,17 @@
     }
 
     // ── MODAL ──
-    function openModal(id) {
-      const a = allArticles.find(x => x.id === id || x.id === String(id));
+    function openModal(idx) {
+      const a = allArticles[idx];
       if (!a) return;
 
-      document.getElementById('modal-category').innerHTML =
-        `<i class="fas fa-${a.contentType === 'blogpost' ? 'pen-nib' : 'file-alt'}"></i> ${a.contentType === 'blogpost' ? 'Blog Post' : 'Page'}`;
+      document.getElementById('modal-category').innerHTML = '<i class="fas fa-pen-nib"></i> Blog Post';
       document.getElementById('modal-title').textContent = a.title;
       document.getElementById('modal-meta').innerHTML = `
-        <span><i class="fas fa-calendar"></i> ${fmtDate(a.history?.createdDate)}</span>
-        ${a.history?.createdBy?.displayName ? `<span><i class="fas fa-user"></i> ${esc(a.history.createdBy.displayName)}</span>` : ''}`;
-
-      // Render Confluence body HTML, stripping any Confluence-specific wrapper markup
-      const bodyHtml = a.body?.view?.value || '<p>No content available.</p>';
-      document.getElementById('modal-body').innerHTML = bodyHtml;
-
-      const confluenceUrl = `${CONFLUENCE_BASE}/spaces/${SPACE_KEY}/${a.contentType === 'blogpost' ? 'blog' : 'pages'}/${a.id}`;
-      document.getElementById('modal-confluence-link').href = confluenceUrl;
+        <span><i class="fas fa-calendar"></i> ${fmtDate(a.date)}</span>
+        ${a.author ? `<span><i class="fas fa-user"></i> ${esc(a.author)}</span>` : ''}`;
+      document.getElementById('modal-body').innerHTML = a.content || '<p>No content available.</p>';
+      document.getElementById('modal-confluence-link').href = a.link || 'https://oralhealth.atlassian.net/wiki/spaces/PM/overview';
 
       document.getElementById('modal-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -376,19 +362,18 @@
         <div class="state-box">
           <i class="fas fa-exclamation-circle" style="color:#dc2626"></i>
           <h3>Could not load articles</h3>
-          <p>There was a problem connecting to Confluence. Please try refreshing the page, or <a href="https://oralhealth.atlassian.net/wiki/spaces/PM/overview" target="_blank" style="color:var(--ohia-blue)">visit the Confluence space directly</a>.</p>
+          <p>There was a problem connecting to Confluence. Please try refreshing, or <a href="https://oralhealth.atlassian.net/wiki/spaces/PM/overview" target="_blank" style="color:var(--ohia-blue)">visit the Confluence space directly</a>.</p>
         </div>`;
     }
 
     // ── HELPERS ──
     function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-    function fmtDate(iso) {
-      if (!iso) return '';
-      return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    function fmtDate(str) {
+      if (!str) return '';
+      return new Date(str).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
     function getExcerpt(a) {
-      const raw = a.body?.view?.value || '';
-      const text = raw.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const text = (a.description || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
       return esc(text.length > 180 ? text.slice(0, 180) + '…' : text) || 'Click to read the full article.';
     }
 
