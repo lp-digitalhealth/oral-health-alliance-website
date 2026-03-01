@@ -220,40 +220,38 @@
   </footer>
 
   <script>
-    // Confluence RSS feed URL — public feed, no auth needed, no CORS issues
-    const RSS_URL = 'https://oralhealth.atlassian.net/wiki/createrssfeed.action?types=blogpost&spaces=PM&title=OHIA+News&maxResults=50&publicFeed=true';
-    // We use rss2json as a free RSS-to-JSON bridge (handles CORS for us)
-    const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    // Calls our Netlify Function which proxies Confluence server-side (no CORS)
+    const API = '/.netlify/functions/confluence';
 
     let allArticles = [];
     let currentFilter = 'all';
 
-    // ── FETCH RSS ──
+    // ── FETCH FROM NETLIFY FUNCTION ──
     async function loadNews() {
       try {
-        const res = await fetch(RSS2JSON + encodeURIComponent(RSS_URL));
-        if (!res.ok) throw new Error('RSS fetch failed');
+        const res = await fetch(API);
+        if (!res.ok) throw new Error('Function fetch failed');
         const data = await res.json();
 
-        if (data.status !== 'ok' || !data.items || !data.items.length) {
+        if (!data.results || !data.results.length) {
           showEmpty();
           return;
         }
 
-        allArticles = data.items.map((item, i) => ({
+        allArticles = data.results.map((item, i) => ({
           id: i,
           title: item.title || 'Untitled',
-          link: item.link || '',
-          date: item.pubDate || '',
-          author: item.author || '',
-          description: item.description || '',
-          content: item.content || item.description || ''
+          link: 'https://oralhealth.atlassian.net/wiki' + (item._links && item._links.webui ? item._links.webui : ''),
+          date: item.history && item.history.createdDate ? item.history.createdDate : '',
+          author: item.history && item.history.createdBy ? item.history.createdBy.displayName : '',
+          description: item.body && item.body.view ? item.body.view.value : '',
+          content: item.body && item.body.view ? item.body.view.value : ''
         }));
 
         render(currentFilter);
 
       } catch (err) {
-        console.error('RSS fetch error:', err);
+        console.error('News fetch error:', err);
         showError();
       }
     }
