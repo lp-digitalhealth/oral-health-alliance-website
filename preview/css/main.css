@@ -1314,3 +1314,27 @@ body {
     color: var(--ohia-accent);
   }
 }
+
+/* Fix priority card taps on touch devices */
+@media (hover: none) {
+  .priority-card:hover,
+  .priority-card:focus {
+    transform: none;
+    box-shadow: 0 4px 24px rgba(13, 35, 70, 0.08);
+  }
+  .about-content > div:hover,
+  .about-content > div:focus {
+    transform: none;
+  }
+  .governance-content > div:hover,
+  .governance-content > div:focus {
+    transform: none;
+  }
+  .membership-list .priority-card:hover,
+  .membership-list .priority-card:focus {
+    transform: none;
+  }
+  .event-card:hover {
+    transform: none;
+  }
+}
